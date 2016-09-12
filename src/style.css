@@ -1,0 +1,348 @@
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300,100);
+html {
+  box-sizing: border-box; }
+
+*, *::after, *::before {
+  box-sizing: inherit; }
+
+/* //////////////////////////////////////// */
+/* ///               Fonts              /// */
+/* //////////////////////////////////////// */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  font-style: normal; }
+
+img, fieldset {
+  border: none; }
+
+input, textarea, button {
+  border: none;
+  outline: none;
+  -webkit-apperance: none;
+  background: none;
+  font-size: 14px; }
+
+a {
+  text-decoration: none; }
+
+li {
+  list-style: none; }
+
+/* //////////////////////////////////////// */
+/* ///               Global             /// */
+/* //////////////////////////////////////// */
+html {
+  height: 100%; }
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #091A1F;
+  font-family: "Source Sans Pro", sans-serif; }
+  body:after {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    content: "";
+    height: 15px;
+    background: #3F9EFB;
+    width: 100%; }
+  body.purple {
+    background-color: #534A93; }
+
+a {
+  color: #3F9EFB; }
+
+.button {
+  display: inline-block;
+  margin: 1em 0;
+  background-color: white;
+  border-radius: 6px;
+  padding: 1em 2em;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 2px 1px 0 #7C1E16; }
+  .button:hover {
+    color: #71b7fc; }
+
+/* Rectangles */
+h1 {
+  font-size: 26px; }
+
+#root {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto; }
+  #root::after {
+    clear: both;
+    content: "";
+    display: table; }
+
+.login {
+  max-width: 500px;
+  margin: 5em auto;
+  text-align: center; }
+  .login .logo h1 {
+    font-size: 60px; }
+  .login p {
+    font-size: 30px; }
+  .login .button {
+    margin: 2em 0;
+    font-size: 1.5em;
+    width: 75%; }
+
+.playlist {
+  margin-top: 60px; }
+
+.logo {
+  display: block;
+  font-size: 30px;
+  font-weight: 100;
+  color: #fff; }
+  .logo .circled {
+    display: block;
+    background: rgba(0, 0, 0, 0.1); }
+  .logo h1 {
+    font-size: 30px;
+    font-weight: 200; }
+    .logo h1 strong {
+      font-weight: 400; }
+  .logo p {
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7); }
+
+header {
+  display: block;
+  margin-top: 80px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 2em; }
+  header::after {
+    clear: both;
+    content: "";
+    display: table; }
+  header .logo {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 74.41059%; }
+    header .logo:last-child {
+      margin-right: 0; }
+    header .logo img {
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 31.76157%;
+      height: 90px;
+      width: 90px; }
+      header .logo img:last-child {
+        margin-right: 0; }
+    header .logo aside {
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 65.88078%;
+      margin-top: 18px;
+      font-size: 18px; }
+      header .logo aside:last-child {
+        margin-right: 0; }
+  header .sms-number {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 23.23176%;
+    border-radius: 6px;
+    text-align: center;
+    color: #fff;
+    margin-top: -10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    background: #3F9EFB; }
+    header .sms-number:last-child {
+      margin-right: 0; }
+    header .sms-number > span,
+    header .sms-number > h3 {
+      display: block;
+      padding: .25em; }
+    header .sms-number > span {
+      padding-bottom: .5em;
+      font-size: 30px; }
+    header .sms-number h3 {
+      background: rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      font-size: 18px;
+      letter-spacing: .05em;
+      padding-bottom: .5em;
+      text-transform: uppercase; }
+    header .sms-number strong {
+      font-weight: 300; }
+    header .sms-number .alt-number {
+      font-size: 30px;
+      font-weight: 100;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      text-align: right;
+      color: #a3d0fd; }
+
+.playlist {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: distribute;
+  -moz-box-pack: distribute;
+  box-pack: distribute;
+  -webkit-justify-content: space-around;
+  -moz-justify-content: space-around;
+  -ms-justify-content: space-around;
+  -o-justify-content: space-around;
+  justify-content: space-around;
+  -ms-flex-pack: distribute; }
+
+.track-wrapper aside {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #7C1E16; }
+  .track-wrapper aside::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .track-wrapper aside div:nth-child(1) {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 65.88078%; }
+    .track-wrapper aside div:nth-child(1):last-child {
+      margin-right: 0; }
+  .track-wrapper aside div:nth-child(2) {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 31.76157%;
+    text-align: right;
+    color: #FF7E7E; }
+    .track-wrapper aside div:nth-child(2):last-child {
+      margin-right: 0; }
+
+.track {
+  -webkit-flex-basis: 10em;
+  -moz-flex-basis: 10em;
+  flex-basis: 10em;
+  -ms-flex-preferred-size: 10em;
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  flex-grow: 1;
+  -ms-flex-positive: 1;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  width: 260px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  margin: 0 5px 1em 5px;
+  position: relative;
+  padding: 17px 16px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+  .track .cover-art {
+    overflow: hidden;
+    max-width: 100%;
+    border-radius: 4px; }
+    .track .cover-art img {
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+      background: #DBD199;
+      width: 100%; }
+  .track .details {
+    font-size: 18px;
+    padding: 0.5em 0;
+    line-height: 1.4em;
+    margin-top: 0; }
+    .track .details p {
+      margin: 0 0 0.5em; }
+    .track .details .name {
+      color: #0d85fa;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap; }
+    .track .details .artist {
+      color: #091A1F;
+      margin-top: 3px; }
+      .track .details .artist span:first-child {
+        color: rgba(9, 26, 31, 0.5); }
+    .track .details .album {
+      font-size: .7em; }
+  .track:focus, .track:hover {
+    background-color: white; }
+    .track:focus .cover-art img, .track:hover .cover-art img {
+      background: white;
+      border-radius: 3px; }
+    .track:focus .track-header, .track:hover .track-header {
+      background-color: white; }
+  .track:active {
+    background-color: white; }
+    .track:active .track-header {
+      background-color: white; }
+
+.track-wrapper:first-of-type .track {
+  position: relative;
+  background: white;
+  box-shadow: 0 0 30px 3px rgba(255, 255, 255, 0.3); }
+  .track-wrapper:first-of-type .track:before {
+    content: "♫ Now Playing";
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: .9em;
+    text-align: center; }
+
+.player {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: distribute;
+  -moz-box-pack: distribute;
+  box-pack: distribute;
+  -webkit-justify-content: space-around;
+  -moz-justify-content: space-around;
+  -ms-justify-content: space-around;
+  -o-justify-content: space-around;
+  justify-content: space-around;
+  -ms-flex-pack: distribute; }
