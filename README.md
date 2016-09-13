@@ -8,6 +8,7 @@ Are you ready to party?
   1. Redis instance URL
   1. And [Spotify app](https://developer.spotify.com/my-applications/) client ID and client secret
 2. In your Spotify App settings, add the proper redirect URI.  This should be something like http://localhost:5000/api/auth/callback.  The hostname and port might be different for you.
+3. You may also need to define a `URL` environment variable in `.env`.  This should point to host and port from which the React app is being served (not the API).  e.g. `URL="http://localhost:5000"`
 
 ## Running
 There are three processes that comprise the app when running it locally. These are specified in the `Procfile`.  You can run them all easily using [`node-foreman`](https://github.com/strongloop/node-foreman) or [`heroku local`](https://devcenter.heroku.com/articles/heroku-local).  Or you can run them individually in separate terminal windows.
