@@ -1,3 +1,9 @@
+.playlist {
+  @include display(flex);
+  @include flex-wrap(wrap);
+  @include justify-content(space-around);
+}
+
 .track-wrapper aside {
   @include row();
   font-size: 18px;
@@ -5,13 +11,13 @@
   color: $color-red;
 
   div:nth-child(1) {
-    @include span-columns(8);
+  	@include span-columns(8);
   }
 
   div:nth-child(2) {
-    @include span-columns(4);
-    text-align: right;
-    color: #FF7E7E;
+  	@include span-columns(4);
+  	text-align: right;
+	  color: #FF7E7E;
   }
 }
 

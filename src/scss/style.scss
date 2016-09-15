@@ -1,13 +1,10 @@
 @import "bourbon/bourbon";
 @import "neat";
-
 @import "fonts";
 @import "reset";
-
 @import "global";
-@import "layout";
 
-@import "login";
-@import "header";
+/* Rectangles */
+@import "layout";
+@import "tracks";
 @import "player";
-@import "playlist";

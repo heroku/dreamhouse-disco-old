@@ -12,15 +12,13 @@ class App extends Component {
   render() {
     console.log(this.props);
     return (
-      <div className='main login'>
-        <div className='login-container'>
-          <div className='logo'>
-            <img src={ logo } alt='Smiley face'/>
-            <h1>Dreamhouse<strong>Disco</strong></h1>
-          </div>
-          <p className='tagline'>Your Party Built this Playlist</p>
-          <a href='/api/auth' className='button'>Get started!</a>
+      <div className='main container login'>
+        <div className="logo">
+          <img src={ logo } alt="Smiley face"/>
+          <h1>Dreamhouse<strong>Disco</strong></h1>
+          <p>Your Party Built this Playlist</p>
         </div>
+        <a href='/api/auth' className='button'>Get started!</a>
       </div>
     )
   }

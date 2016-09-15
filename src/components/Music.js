@@ -6,7 +6,6 @@ import ReactPlayer from 'react-player'
 import Track from './Track';
 
 import logo from '../../images/disco-chat-logo.png'
-import placeholder from '../../images/placeholder.png'
 
 import { fetchPlaylist, nextTrack } from '../actions/musicActions'
 
@@ -56,82 +55,34 @@ class Music extends Component {
 
 
     return (
-      <div className='main demo'>
+      <div className='main container'>
 
         <header>
-          <a href='#' className='logo'>
-            <img src={ logo } alt='Smiley face'/>
-            <h1>Dreamhouse<strong>Disco</strong></h1>
+          <a href="#" className="logo">
+            <img src={ logo } alt="Smiley face"/>
+            <aside>
+              <h1>Dreamhouse<strong>Disco</strong></h1>
+              <p>Your Party Built this Playlist</p>
+            </aside>
           </a>
-          <p className='byline'>a demo app running on <a href='https://www.heroku.com/' className='logo-heroku'>Heroku</a></p>
+          <div className="sms-number">
+            <h3>Text a track to</h3>
+            {/* TODO: replace hard-coded alt-number */}
+            <span><strong>{ formatNumber(number) }</strong><div className="alt-number">693 - 4726</div></span>
+          </div>
         </header>
 
-        <div className='playlist-container'>
-          <div className='player'>
-            <div className='container'>
-              <h2>Now playing</h2>
-              <div className='track now-playing'>
-                <img src={ placeholder } alt='Album Title'/>
-                <span className='track-title'>Leave the Biker</span>
-                <span className='track-artist'>Fountains of Wayne</span>
-              </div>
-              <h2>Up next</h2>
-              <div className='track on-deck'>
-                <img src={ placeholder } alt='Album Title'/>
-                <span className='track-title'>Tiny Cities Made of Ashes</span>
-                <span className='track-artist'>Modest Mouse</span>
-              </div>
-            </div>
-          </div>
-          <div className='playlist'>
-            <ol className='tracks'>
-              <li className='track'>
-                <span className='track-title'>Greatest Song in the World</span>
-                <span className='track-artist'>Tenacious D</span>
-                <span className='track-time'>3:45</span>
-              </li>
-              <li className='track'>
-                <span className='track-title'>Greatest Song in the World</span>
-                <span className='track-artist'>Tenacious D</span>
-                <span className='track-time'>3:45</span>
-              </li>
-              <li className='track'>
-                <span className='track-title'>This Is a Very Very Long Song Title That Will Wrap to the Next Line</span>
-                <span className='track-artist'>Tenacious D</span>
-                <span className='track-time'>3:45</span>
-              </li>
-              <li className='track new'>
-                <span className='track-title'>Greatest Song in the World</span>
-                <span className='track-artist'>Tenacious D</span>
-                <span className='track-time'>3:45</span>
-              </li>
-            </ol>
-            <footer>
-              <div className='track-count'><span>4</span> tracks</div>
-              <div className='sms-number'>
-                <span>text a track to </span>
-                {/* TODO: replace hard-coded alt-number */}
-                <strong>{ formatNumber(number) }</strong>
-                <span className='alt-number'>693 - 4726</span>
-              </div>
-            </footer>
-          </div>
+        <div className="playlist"> { tracks } </div>
+        {/* TODO: Clean-up ugly musicReducer code behind this */}
+        <div className="player">
+          <ReactPlayer
+            url={ this.props.currentTrack }
+            playing={ this.props.isPlaying }
+            controls={ true }
+            height={ 75 }
+            onEnded={ () => this.props.nextTrack() }
+          />
         </div>
-
-        {/* 
-        <div className='playlist-container'>
-          // TODO: Clean-up ugly musicReducer code behind this
-          <div className='player'>
-            <ReactPlayer
-              url={ this.props.currentTrack }
-              playing={ this.props.isPlaying }
-              controls={ true }
-              height={ 75 }
-              onEnded={ () => this.props.nextTrack() }
-            />
-          </div>
-          <div className='playlist'> { tracks } </div>
-        </div> */}
       </div>
     )
   }
