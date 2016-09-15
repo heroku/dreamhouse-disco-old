@@ -1,0 +1,44 @@
+From 9a1d27c7477ae96a102dbf476b4ee002d2ff49ba Mon Sep 17 00:00:00 2001
+From: Matt Dean <matt@trabian.com>
+Date: Wed, 31 Aug 2016 08:59:37 -0400
+Subject: [PATCH] Added `proxyPaths` option to package.json
+
+This allows `text/html` requests to be passed to the proxy.
+---
+ scripts/start.js   | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/start.js b/scripts/start.js
+index aa68ab4..2aaa28d 100644
+--- a/scripts/start.js
++++ b/scripts/start.js
+@@ -171,7 +171,11 @@ function openBrowser(port) {
+ function addMiddleware(devServer) {
+   // `proxy` lets you to specify a fallback server during development.
+   // Every unrecognized request will be forwarded to it.
+-  var proxy = require(paths.appPackageJson).proxy;
++  var pkg = require(paths.appPackageJson);
++
++  var proxy = pkg.proxy;
++  var proxyPaths = pkg.proxyPaths;
++
+   devServer.use(historyApiFallback({
+     // Allow paths with dots in them to be loaded, reference issue #387
+     disableDotRule: true,
+@@ -184,7 +188,12 @@ function addMiddleware(devServer) {
+     // If this heuristic doesn’t work well for you, don’t use `proxy`.
+     htmlAcceptHeaders: proxy ?
+       ['text/html'] :
+-      ['text/html', '*/*']
++      ['text/html', '*/*'],
++    // Pass `proxyPaths` directly to the proxy.
++    rewrites: proxyPaths && proxyPaths.map(path => ({
++      from: new RegExp(path),
++      to: context => context.parsedUrl.pathname,
++    }))
+   }));
+   if (proxy) {
+     if (typeof proxy !== 'string') {
+-- 
+2.10.0
+
