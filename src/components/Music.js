@@ -6,7 +6,6 @@ import ReactPlayer from 'react-player'
 import Track from './Track';
 
 import logo from '../../images/disco-chat-logo.png'
-import placeholder from '../../images/placeholder.png'
 
 import { fetchPlaylist, nextTrack } from '../actions/musicActions'
 
@@ -40,19 +39,21 @@ class Music extends Component {
   }
 
   render() {
-
-    let tracks = _.map(_.take(this.props.tracks, 4), (track) => {
-      return <Track
-        key={ track.track.id }
-        track={ track.track }
-      />
-    })
-
     const { number } = this.props.account
 
     function formatNumber(n) {
       return `+1 (${n.substr(0, 3)}) ${n.substr(3, 2)} - ${n.substr(5,5)}`
     }
+
+    let nowPlayingTrack = this.props.tracks.length > 0 ? this.props.tracks[0] : null
+    let upNextTrack = this.props.tracks.length > 1 ? this.props.tracks[1] : null
+
+    let tracks = _.map(this.props.tracks.slice(2), (track) => {
+      return <Track
+        key={ track.track.id }
+        track={ track.track }
+      />
+    })
 
 
     return (
@@ -69,45 +70,34 @@ class Music extends Component {
         <div className='playlist-container'>
           <div className='player'>
             <div className='container'>
-              <h2>Now playing</h2>
-              <div className='track now-playing'>
-                <img src={ placeholder } alt='Album Title'/>
-                <span className='track-title'>Leave the Biker</span>
-                <span className='track-artist'>Fountains of Wayne</span>
-              </div>
-              <h2>Up next</h2>
-              <div className='track on-deck'>
-                <img src={ placeholder } alt='Album Title'/>
-                <span className='track-title'>Tiny Cities Made of Ashes</span>
-                <span className='track-artist'>Modest Mouse</span>
-              </div>
+              { nowPlayingTrack &&
+                <div>
+                  <h2>Now playing</h2>
+                  <div className='track now-playing'>
+                    <img src={ nowPlayingTrack.track.album.images[0].url } alt={ nowPlayingTrack.track.album.name }/>
+                    <span className='track-title'>{ nowPlayingTrack.track.name }</span>
+                    <span className='track-artist'>{ nowPlayingTrack.track.artists[0].name }</span>
+                  </div>
+                </div>
+              }
+              { upNextTrack &&
+                <div>
+                  <h2>Up next</h2>
+                  <div className='track on-deck'>
+                    <img src={ upNextTrack.track.album.images[0].url } alt={ upNextTrack.track.album.name }/>
+                    <span className='track-title'>{ upNextTrack.track.name }</span>
+                    <span className='track-artist'>{ upNextTrack.track.artists[0].name }</span>
+                  </div>
+                </div>
+              }
             </div>
           </div>
           <div className='playlist'>
             <ol className='tracks'>
-              <li className='track'>
-                <span className='track-title'>Greatest Song in the World</span>
-                <span className='track-artist'>Tenacious D</span>
-                <span className='track-time'>3:45</span>
-              </li>
-              <li className='track'>
-                <span className='track-title'>Greatest Song in the World</span>
-                <span className='track-artist'>Tenacious D</span>
-                <span className='track-time'>3:45</span>
-              </li>
-              <li className='track'>
-                <span className='track-title'>This Is a Very Very Long Song Title That Will Wrap to the Next Line</span>
-                <span className='track-artist'>Tenacious D</span>
-                <span className='track-time'>3:45</span>
-              </li>
-              <li className='track new'>
-                <span className='track-title'>Greatest Song in the World</span>
-                <span className='track-artist'>Tenacious D</span>
-                <span className='track-time'>3:45</span>
-              </li>
+              { tracks }
             </ol>
             <footer>
-              <div className='track-count'><span>4</span> tracks</div>
+              <div className='track-count'><span>{ tracks.length }</span> tracks</div>
               <div className='sms-number'>
                 <span>text a track to </span>
                 {/* TODO: replace hard-coded alt-number */}
@@ -118,7 +108,7 @@ class Music extends Component {
           </div>
         </div>
 
-        {/* 
+        {/*
         <div className='playlist-container'>
           // TODO: Clean-up ugly musicReducer code behind this
           <div className='player'>
