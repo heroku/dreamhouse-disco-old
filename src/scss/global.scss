@@ -2,10 +2,10 @@
 /* ///               Global             /// */
 /* //////////////////////////////////////// */
 
-$color-slate: #091A1F;
+$color-slate: #17344e;
 $color-red: #7C1E16;
 $color-purple: #534A93;
-$color-blue: #3F9EFB;
+$color-blue: #048ec6;
 
 $link-color: $color-blue;
 
@@ -19,23 +19,9 @@ body {
   position: relative;
   margin: 0;
   padding: 0;
-	width: 100%;
-  background-color: $color-slate;
+  width: 100%;
+  background-color: white;
   font-family: $font-family;
-  &:after {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    content: "";
-    height: 15px;
-    background: $color-blue;
-    width: 100%;
-
-  }
-
-  &.purple {
-    background-color: $color-purple;
-  }
 }
 
 a {
@@ -43,16 +29,19 @@ a {
 }
 
 .button {
-  display: inline-block;
   margin: 1em 0;
-  background-color: white;
-  border-radius: 6px;
-  padding: 1em 2em;
-  font-weight: bold;
+  padding:  15px 30px;
+  display: inline-block;
+  background-color: $color-blue;
+  border-radius: 3px;
+  box-shadow: 3px 3px 3px 0 rgba(0,0,0,.2);
   text-transform: uppercase;
-  box-shadow: 0 2px 1px 0 $color-red;
+  letter-spacing: 1px;
+  font-size: 20px;
+  font-weight: 100;
+  color: white;
 
   &:hover {
-    color: lighten($color-blue, 10%);
+    background-color: darken($color-blue, 10%);
   }
 }

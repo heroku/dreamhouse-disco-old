@@ -39,50 +39,89 @@ class Music extends Component {
   }
 
   render() {
-
-    let tracks = _.map(_.take(this.props.tracks, 4), (track) => {
-      return <Track
-        key={ track.track.id }
-        track={ track.track }
-      />
-    })
-
     const { number } = this.props.account
 
     function formatNumber(n) {
       return `+1 (${n.substr(0, 3)}) ${n.substr(3, 2)} - ${n.substr(5,5)}`
     }
 
+    let nowPlayingTrack = this.props.tracks.length > 0 ? this.props.tracks[0] : null
+    let upNextTrack = this.props.tracks.length > 1 ? this.props.tracks[1] : null
+
+    let tracks = _.map(this.props.tracks.slice(2), (track) => {
+      return <Track
+        key={ track.track.id }
+        track={ track.track }
+      />
+    })
+
 
     return (
-      <div className='main container'>
+      <div className='main demo'>
 
         <header>
-          <a href="#" className="logo">
-            <img src={ logo } alt="Smiley face"/>
-            <aside>
-              <h1>Dreamhouse<strong>Disco</strong></h1>
-              <p>Your Party Built this Playlist</p>
-            </aside>
+          <a href='#' className='logo'>
+            <img src={ logo } alt='Smiley face'/>
+            <h1>Dreamhouse<strong>Disco</strong></h1>
           </a>
-          <div className="sms-number">
-            <h3>Text a track to</h3>
-            {/* TODO: replace hard-coded alt-number */}
-            <span><strong>{ formatNumber(number) }</strong><div className="alt-number">693 - 4726</div></span>
-          </div>
+          <p className='byline'>a demo app running on <a href='https://www.heroku.com/' className='logo-heroku'>Heroku</a></p>
         </header>
 
-        <div className="playlist"> { tracks } </div>
-        {/* TODO: Clean-up ugly musicReducer code behind this */}
-        <div className="player">
-          <ReactPlayer
-            url={ this.props.currentTrack }
-            playing={ this.props.isPlaying }
-            controls={ true }
-            height={ 75 }
-            onEnded={ () => this.props.nextTrack() }
-          />
+        <div className='playlist-container'>
+          <div className='player'>
+            <div className='container'>
+              { nowPlayingTrack &&
+                <div>
+                  <h2>Now playing</h2>
+                  <div className='track now-playing'>
+                    <img src={ nowPlayingTrack.track.album.images[0].url } alt={ nowPlayingTrack.track.album.name }/>
+                    <span className='track-title'>{ nowPlayingTrack.track.name }</span>
+                    <span className='track-artist'>{ nowPlayingTrack.track.artists[0].name }</span>
+                  </div>
+                </div>
+              }
+              { upNextTrack &&
+                <div>
+                  <h2>Up next</h2>
+                  <div className='track on-deck'>
+                    <img src={ upNextTrack.track.album.images[0].url } alt={ upNextTrack.track.album.name }/>
+                    <span className='track-title'>{ upNextTrack.track.name }</span>
+                    <span className='track-artist'>{ upNextTrack.track.artists[0].name }</span>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+          <div className='playlist'>
+            <ol className='tracks'>
+              { tracks }
+            </ol>
+            <footer>
+              <div className='track-count'><span>{ tracks.length }</span> tracks</div>
+              <div className='sms-number'>
+                <span>text a track to </span>
+                {/* TODO: replace hard-coded alt-number */}
+                <strong>{ formatNumber(number) }</strong>
+                <span className='alt-number'>693 - 4726</span>
+              </div>
+            </footer>
+          </div>
         </div>
+
+        {/*
+        <div className='playlist-container'>
+          // TODO: Clean-up ugly musicReducer code behind this
+          <div className='player'>
+            <ReactPlayer
+              url={ this.props.currentTrack }
+              playing={ this.props.isPlaying }
+              controls={ true }
+              height={ 75 }
+              onEnded={ () => this.props.nextTrack() }
+            />
+          </div>
+          <div className='playlist'> { tracks } </div>
+        </div> */}
       </div>
     )
   }
