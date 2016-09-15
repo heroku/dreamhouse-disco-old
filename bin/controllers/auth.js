@@ -10,8 +10,7 @@ let request = require('request')
 var fmt = require('logfmt')
 
 const number = {
-  s7509896: '+14152148408',
-  s37078794: '+14159360869',
+  lynnandtonic: { number: '2066934726', displayNumber: '206MYDISCO' },
   1293000875: { number: '2066934726', displayNumber: '206MYDISCO' }
 }
 
