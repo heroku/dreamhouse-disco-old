@@ -1,14 +1,11 @@
 {
-  "name": "dc",
+  "name": "dreamhouse-disco",
   "version": "0.0.1",
   "private": true,
   "proxy": "http://localhost:5100/",
   "proxyPaths": [
     "^/api"
   ],
-  "devDependencies": {
-    "react-scripts": "0.4.1"
-  },
   "dependencies": {
     "axios": "^0.14.0",
     "body-parser": "^1.15.2",
@@ -31,6 +28,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.7.0",
     "react-router-redux": "^4.0.5",
+    "react-scripts": "0.4.1",
     "redis": "^2.6.2",
     "redux": "^3.5.2",
     "redux-auth-wrapper": "^0.7.0",
@@ -43,9 +41,9 @@
     "twilio": "^2.9.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "heroku-postbuild": "npm run build",
+    "start": "node ./bin/www",
     "processTracks": "node ./bin/track-processor",
-    "api": "node ./bin/www",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "sass-dev": "node-sass --watch --include-path 'node_modules/bourbon-neat/app/assets/stylesheets'  src/scss/style.scss --output src",

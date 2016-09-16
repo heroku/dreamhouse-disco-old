@@ -1,0 +1,3 @@
+web: react-scripts start
+api: npm start
+tracks: npm run processTracks
