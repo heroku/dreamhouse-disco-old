@@ -43,7 +43,7 @@
     "twilio": "^2.9.2"
   },
   "scripts": {
-    "postinstall": "if ! patch -s -R -N --dry-run ./node_modules/react-scripts/scripts/start.js ./0001-Added-proxyPaths-option-to-package.json.patch; then patch ./node_modules/react-scripts/scripts/start.js ./0001-Added-proxyPaths-option-to-package.json.patch; fi",
+    "postinstall": "if ! patch -s -R -N --dry-run node_modules/react-scripts/scripts/start.js 0001-Added-proxyPaths-option-to-package.json.patch; then patch node_modules/react-scripts/scripts/start.js 0001-Added-proxyPaths-option-to-package.json.patch; fi",
     "start": "react-scripts start",
     "processTracks": "node ./bin/track-processor",
     "api": "node ./bin/www",
