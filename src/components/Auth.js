@@ -45,10 +45,19 @@ class Auth extends Component {
 
 
     render() {
+      // TODO
+      // if this.props.location.query.number is blank
+      // and this.props.location.query.displayNumber is blank
+      // prompt with form fields for number and display number
+      // save values to DB and call login
+      // ELSE
+      // just do the below
+
       this.props.login({
         id: this.props.location.query.id,
         name: this.props.location.query.name,
-        number: this.props.location.query.number
+        number: this.props.location.query.number,
+        displayNumber: this.props.location.query.displayNumber
       });
       return null
     }

@@ -65,9 +65,7 @@ class AuthController {
             access_token: token.token.access_token,
             refresh_token: token.token.refresh_token,
             expires_at: token.token.expires_at,
-            token_type: token.token.token_type,
-            number: number[body.id].number,
-            display_number: number[body.id].displayNumber
+            token_type: token.token.token_type
           })
 
           db.Account.upsert(rawUser)
@@ -84,11 +82,19 @@ class AuthController {
             })
             .then(function(account) {
               // Set session information
-              // Save to session store
-              req.session.spotifyId    = account.get('id');
-              req.session.smsNumber    = account.get('display_number');
-              req.session.display_name = account.get('display_name');
+              req.session.spotifyId       = account.get('id');
+              req.session.smsNumber       = account.get('number');
+              req.session.display_number  = account.get('display_number');
+              req.session.display_name    = account.get('display_name');
               req.session.save();
+
+              // Redirect to React auth route
+              res.redirect(config.url +
+                  `/#/auth?id=${encodeURIComponent(account.get('id'))}` +
+                  `&number=${encodeURIComponent(account.get('number'))}` +
+                  `&name=${encodeURIComponent(account.get('display_name'))}` +
+                  `&displayNumber=${encodeURIComponent(account.get('display_number'))}`
+                )
 
               // if (account.get('Playlists').length > 0) return
 
@@ -106,9 +112,6 @@ class AuthController {
               //
               //     return account.addPlaylist(playlist)
               //   })
-            })
-            .finally(function() {
-              res.redirect(config.url + `/#/auth?id=${rawUser.id}&number=${rawUser.display_number}&name=${rawUser.display_name}`)
             })
             .catch(function(err) {
               fmt.error(err)

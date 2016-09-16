@@ -39,11 +39,8 @@ class Music extends Component {
   }
 
   render() {
-    const { number } = this.props.account
-
-    function formatNumber(n) {
-      return `+1 (${n.substr(0, 3)}) ${n.substr(3, 2)} - ${n.substr(5,5)}`
-    }
+    let { displayNumber, number } = this.props.account
+    if (!displayNumber || displayNumber === '' || displayNumber === undefined) displayNumber = number
 
     let nowPlayingTrack = this.props.tracks.length > 0 ? this.props.tracks[0] : null
     let upNextTrack = this.props.tracks.length > 1 ? this.props.tracks[1] : null
@@ -100,9 +97,8 @@ class Music extends Component {
               <div className='track-count'><span>{ tracks.length }</span> tracks</div>
               <div className='sms-number'>
                 <span>text a track to </span>
-                {/* TODO: replace hard-coded alt-number */}
-                <strong>{ formatNumber(number) }</strong>
-                <span className='alt-number'>693 - 4726</span>
+                <strong>{ displayNumber }</strong>
+                <span className='alt-number'>{ number }</span>
               </div>
             </footer>
           </div>
