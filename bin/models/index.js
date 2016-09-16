@@ -46,7 +46,7 @@ db.Playlist.belongsToMany(db.Track, { through: db.PlaylistTracks })
 db.Playlist.belongsTo(db.Account)
 
 function initDb() {
-  return db.sequelize.sync({ force: true }).then(function() {
+  return db.sequelize.sync({}).then(function() {
     fmt.log({ type: 'info', msg: 'Sequelize validated database state' })
   })
 }
