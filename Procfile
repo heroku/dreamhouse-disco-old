@@ -1,2 +1,2 @@
-web: npm start
-tracks: npm run processTracks
+web: bin/start-stunnel npm start
+tracks: bin/start-stunnel npm run processTracks
