@@ -43,9 +43,10 @@ class AuthController {
   _getCallback(req, res) {
     var code = req.query.code
 
+    let protocol = req.get('X-Forwarded-Proto') || req.protocol
     oauth2.authCode.getToken({
       code: code,
-      redirect_uri: req.protocol + '://' + req.get('host') + '/api/auth/callback'
+      redirect_uri: protocol + '://' + req.get('host') + '/api/auth/callback'
     }, saveToken)
 
     function saveToken(error, result) {
