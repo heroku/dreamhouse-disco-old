@@ -30,8 +30,9 @@ class AuthController {
   }
 
   _get(req, res) {
+    let protocol = req.get('X-Forwarded-Proto') || req.protocol
     let authUri = oauth2.authCode.authorizeURL({
-      redirect_uri: req.protocol + '://' + req.get('host') + '/api/auth/callback',
+      redirect_uri: protocol + '://' + req.get('host') + '/api/auth/callback',
       response_type: 'code',
       scope: 'user-read-private playlist-modify-public playlist-modify-private',
       show_dialog: true

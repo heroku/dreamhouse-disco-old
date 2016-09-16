@@ -43,6 +43,7 @@
   "scripts": {
     "heroku-postbuild": "npm run build",
     "start": "node ./bin/www",
+    "start-dev": "react-scripts start",
     "processTracks": "node ./bin/track-processor",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
