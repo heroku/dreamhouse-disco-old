@@ -20,7 +20,7 @@
   },
   "addons": [
     "heroku-postgresql",
-    "heroku-redis"
+    { "plan": "heroku-redis:premium-0" }
   ],
   "buildpacks": [
     {
