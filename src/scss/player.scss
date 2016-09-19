@@ -1,10 +1,13 @@
-.player {
+.demo .player {
   padding: 30px;
+  background-image: linear-gradient(to top, rgba(22,52,78,.7), transparent),
+                    url('../images/icon-background.png');
+}
+
+.player {
   @include display(flex);
   @include justify-content(center);
   @include align-items(center);
-  background-image: linear-gradient(to top, rgba(22,52,78,.7), transparent),
-                    url('../images/icon-background.png');
   color: white;
 
   h2 {
@@ -51,7 +54,8 @@
       }
     }
 
-    &.on-deck {
+    &.on-deck,
+    &.submitted {
       min-height: 120px;
       padding: 10px 20px 10px 120px;
       position: relative;

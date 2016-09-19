@@ -2,22 +2,38 @@
 //   @include box-sizing(border-box);
 // }
 
-.main.demo {
-  height: 100vh;
-  @include display(flex);
-  @include flex-direction(column);
+//- For larger screens
+@media (min-width: $bp-small + 1) {
 
-  header {
-    @include flex-basis(70px);
-  }
-
-  .playlist-container {
+  .main.demo {
+    height: 100vh;
     @include display(flex);
-    @include flex(1 1 auto);
+    @include flex-direction(column);
+
+    header {
+      @include flex-basis(70px);
+    }
+
+    .playlist-container {
+      @include display(flex);
+      @include flex(1 1 auto);
+    }
+
+    .player,
+    .playlist {
+      @include flex(1);
+    }
   }
 
-  .player,
-  .playlist {
-    @include flex(1);
+  .main.thanks {
+
+    .thanks-content {
+      padding: 20px 0;
+      @include display(flex);
+
+      .playlist { width: 55%; }
+      .form { width: 45%; }
+    }
   }
+
 }
