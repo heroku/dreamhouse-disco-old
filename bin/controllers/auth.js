@@ -9,11 +9,6 @@ let _ = require('lodash')
 let request = require('request')
 var fmt = require('logfmt')
 
-const number = {
-  lynnandtonic: { number: '2066934726', displayNumber: '206MYDISCO' },
-  1293000875: { number: '2066934726', displayNumber: '206MYDISCO' }
-}
-
 class AuthController {
 
   constructor() {
