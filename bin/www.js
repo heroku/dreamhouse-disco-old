@@ -24,6 +24,17 @@ db.init().catch(function(err) {
   process.exit(0)
 })
 
+// Redirect all HTTP traffic to HTTPS in production
+if (config.env === 'production') {
+  app.use((req, res, next) => {
+    app.enable('trust proxy', 'loopback')
+    if (req.secure) {
+      return next()
+    }
+    res.redirect(`https://${req.hostname}${req.url}`)
+  })
+}
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/', express.static(path.resolve(__dirname, '..', 'build')))
