@@ -10,11 +10,15 @@
   .login-container {
     width: 100%;
     max-width: 800px;
+    padding: 30px;
   }
 
   .logo h1 {
     font-size: 50px;
     color: white;
+    @media (max-width: $bp-small) {
+      font-size: 32px;
+    }
   }
 
   .tagline {
@@ -23,10 +27,17 @@
     font-weight: 100;
     color: white;
     opacity: .7;
+    @media (max-width: $bp-small) {
+      font-size: 18px;
+    }
   }
 
   .button {
     min-width: 300px;
     margin: 2em 0;
+    box-shadow: 3px 3px 3px 0 rgba(0,0,0,.2);
+    letter-spacing: 1px;
+    font-size: 20px;
+    font-weight: 100;
   }
 }

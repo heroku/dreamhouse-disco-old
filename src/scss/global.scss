@@ -11,6 +11,8 @@ $link-color: $color-blue;
 
 $font-family: 'Source Sans Pro', sans-serif;
 
+$bp-small: 600px;
+
 html {
   height: 100%;
 }
@@ -22,10 +24,24 @@ body {
   width: 100%;
   background-color: white;
   font-family: $font-family;
+  color: #333;
 }
 
 a {
   color: $link-color;
+  transition: opacity .3s;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
 }
 
 .button {
@@ -34,12 +50,12 @@ a {
   display: inline-block;
   background-color: $color-blue;
   border-radius: 3px;
-  box-shadow: 3px 3px 3px 0 rgba(0,0,0,.2);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 20px;
-  font-weight: 100;
+  letter-spacing: 2px;
+  font-size: 14px;
+  font-weight: 300;
   color: white;
+  cursor: pointer;
 
   &:hover {
     background-color: darken($color-blue, 10%);
