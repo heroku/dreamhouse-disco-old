@@ -83,7 +83,7 @@ function track (job, ctx, done) {
 }
 
 function processRequest(job, ctx, done) {
-  db.Account.findOne({ id: job.data.spotifyAccountId })
+  db.Account.findOne({  })
   .then(function(acct) {
 
     if ( !acct || !acct.get('playlist_id') ) {
@@ -99,7 +99,7 @@ function processRequest(job, ctx, done) {
       sender: job.data.sender,
       text: job.data.text,
       raw_message: job.data,
-      AccountId: job.data.spotifyAccountId
+      AccountId: acct.get('id')
     })
     .then(function(msg) {
       // Make sure Spotify token isn't expired

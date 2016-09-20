@@ -26,7 +26,6 @@ class TravoltaController {
       type: 'fb',
       sender: req.body.sender,
       text: req.body.text,
-      spotifyAccountId: req.body.spotifyAccountId,
       rawMessage: req.body
     }
 
