@@ -21,12 +21,14 @@ class TravoltaController {
   }
 
   _post(req, res) {
-    console.log(req.body)
 
-    let trackKeys = _.map(_.keys(req.body), _.camelCase)
-    let track = _.merge(_.zipObject(trackKeys, _.values(req.body)), {
-      title: req.body.text + ' requested by ' + req.body.sender
-    })
+    const track = {
+      type: 'fb',
+      sender: req.body.sender,
+      text: req.body.text,
+      spotifyAccountId: req.body.spotifyAccountId,
+      rawMessage: req.body
+    }
 
     let job = q.create('track', track)
 
