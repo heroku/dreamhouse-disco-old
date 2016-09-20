@@ -18,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
 		access_token: DataTypes.STRING,
 		token_type: DataTypes.ENUM('Bearer'),
 		refresh_token: DataTypes.STRING,
-		expires_at: DataTypes.DATE
+		expires_at: DataTypes.DATE,
+		playlist_id: DataTypes.STRING
 	})
 }

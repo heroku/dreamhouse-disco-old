@@ -13,23 +13,23 @@ let config = require('./config')
 
 q.process('track', track)
 
-const validFields = [
-  'accountSid',
-  'messageSid',
-  'smsMessageSid',
-  'smsSid',
-  'body',
-  'from',
-  'fromCity',
-  'fromCountry',
-  'fromState',
-  'fromZip',
-  'to',
-  'toCity',
-  'toCountry',
-  'toState',
-  'toZip',
-]
+// const validFields = [
+//   'accountSid',
+//   'messageSid',
+//   'smsMessageSid',
+//   'smsSid',
+//   'body',
+//   'from',
+//   'fromCity',
+//   'fromCountry',
+//   'fromState',
+//   'fromZip',
+//   'to',
+//   'toCity',
+//   'toCountry',
+//   'toState',
+//   'toZip',
+// ]
 
 function pauseWorker (ctx) {
   ctx.pause(1000, function (err) {
@@ -48,29 +48,61 @@ function pauseWorker (ctx) {
   })
 }
 
-// TODO: test this track processor
 function track (job, ctx, done) {
-  let rawMessage = _.pick(job.data, validFields)
+  switch (job.data.type) {
+    case 'sms':
+      fmt.log({
+        type: 'info',
+        msg: `Worker has SMS message from ${job.data.fromCity}, requesting ${job.data.body}`
+      })
+      processSmsRequest(job, ctx, done)
+      break;
 
-  db.Message.create(rawMessage).then(function(message) {
+    case 'fb':
+      fmt.log({
+        type: 'info',
+        msg: `Worker has FB message from ${job.data.sender}, requesting ${job.data.text}`
+      })
+      processRequest(job, ctx, done)
+      break;
 
-    fmt.log({
-      type: 'info',
-      msg: `${message.to}: Worker has job from ${message.fromCity}, requesting ${message.body}`
+    case 'chatter':
+      fmt.log({
+        type: 'info',
+        msg: `Worker has Chatter message from ${job.data.sender}, requesting ${job.data.text}`
+      })
+
+    default:
+      const err = new Error('Unknown message type. Skipping.')
+      fmt.log({
+        type: 'warning',
+        msg: err
+      })
+      done(err)
+  }
+}
+
+function processRequest(job, ctx, done) {
+  db.Account.findOne({  })
+  .then(function(acct) {
+
+    if ( !acct || !acct.get('playlist_id') ) {
+      let err = new Error(`No account and/or playlist found, have you auth'd with Spotify?`)
+      fmt.log({ type: 'warning', msg: err })
+      done(err)
+      pauseWorker(ctx)
+      return
+    }
+
+    db.Message.create({
+      type: job.data.type,
+      sender: job.data.sender,
+      text: job.data.text,
+      raw_message: job.data,
+      AccountId: acct.get('id')
     })
-
-    let opts = { where: { number: message.get('to') } }
-
-    return db.Account.findOne(opts).then(function(acct) {
-
-      if (!acct) {
-        let err = new Error(`No account found, have you auth'd with Spotify?`)
-        fmt.log({ type: 'warning', msg: err })
-        done(err)
-        pauseWorker(ctx)
-        return
-      }
-
+    .then(function(msg) {
+      // Make sure Spotify token isn't expired
       let expireAt = moment(acct.get('expires_at'))
       let now = moment()
 
@@ -84,12 +116,13 @@ function track (job, ctx, done) {
         return
       }
 
+      // Search Spotify for track
       var opts = {
         auth: { 'bearer': acct.get('access_token') },
         json: true
       }
 
-      const query = message.get('body')
+      const query = msg.get('text')
       let spotifySearchUri = `https://api.spotify.com/v1/search?q=${query}&type=track&market=from_token&limit=1`
 
       request.get(spotifySearchUri, opts, function(err, res, body) {
@@ -109,8 +142,8 @@ function track (job, ctx, done) {
           fmt.log({
             type: 'warning',
             msg: 'Job complete: Spotify search yielded no result',
-            messageKey: message.id,
-            request: message.body
+            messageKey: msg.id,
+            request: msg.body
           })
           done()
           return
@@ -120,7 +153,8 @@ function track (job, ctx, done) {
 
         // Add track to playlist
         const user = acct.get('id')
-        let spotifyTrackAddUri = `https://api.spotify.com/v1/users/${user}/playlists/1WCoOeyBzRcWQfcFaJObFZ/tracks?uris=${track.uri}`
+        const playlist = acct.get('playlist_id')
+        let spotifyTrackAddUri = `https://api.spotify.com/v1/users/${user}/playlists/${playlist}/tracks?uris=${track.uri}`
         request.post(spotifyTrackAddUri, opts, function(err, res, body) {
           if (err || res.statusCode ==! 200) {
             fmt.log({
@@ -134,13 +168,13 @@ function track (job, ctx, done) {
           fmt.log({
             type: 'info',
             msg: 'Job complete: Track added to the playlist',
-            messageKey: message.id,
+            messageKey: msg.id,
             trackKey: track.uri
           })
 
           // Add track id to message record
-          message.update({
-            trackId: track.uri
+          msg.update({
+            track_id: track.uri
           })
           .then(function() {
             done()  // done with job
@@ -150,10 +184,6 @@ function track (job, ctx, done) {
           })
         })
       })
-    }).catch(function(err) {
-      throw new Error(err)
     })
-  }).catch(function(err) {
-    throw new Error(err)
   })
 }
