@@ -9,6 +9,7 @@ import App from './components/App';
 import Music from './components/Music';
 import Auth from './components/Auth';
 import Thanks from './components/Thanks';
+import Logout from './components/Logout';
 import store from './store'
 
 
@@ -31,6 +32,7 @@ ReactDOM.render(
       <Route path="/auth" component={Auth}/>
       <Route path="/music" component={UserIsAuthenticated(Music)}/>
       <Route path="/thanks" component={Thanks}/>
+      <Route path="/logout" component={Logout}/>
       <Route path="*" component={NoMatch}/>
     </Router>
   </Provider>,
