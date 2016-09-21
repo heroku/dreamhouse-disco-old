@@ -36,6 +36,7 @@
     "redux-promise-middleware": "^4.0.0",
     "redux-thunk": "^2.1.0",
     "request": "^2.74.0",
+    "riek": "^1.0.4",
     "sequelize": "^3.24.1",
     "simple-oauth2": "^0.8.0",
     "twilio": "^2.9.2"
