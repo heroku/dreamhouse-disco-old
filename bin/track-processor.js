@@ -53,15 +53,15 @@ function track (job, ctx, done) {
     case 'sms':
       fmt.log({
         type: 'info',
-        msg: `Worker has SMS message from ${job.data.fromCity}, requesting ${job.data.body}`
+        msg: `Worker has SMS message from ${job.data.sender}, requesting '${job.data.text}'`
       })
-      processSmsRequest(job, ctx, done)
+      processRequest(job, ctx, done)
       break;
 
     case 'fb':
       fmt.log({
         type: 'info',
-        msg: `Worker has FB message from ${job.data.sender}, requesting ${job.data.text}`
+        msg: `Worker has FB message from ${job.data.sender}, requesting '${job.data.text}'`
       })
       processRequest(job, ctx, done)
       break;
@@ -69,7 +69,7 @@ function track (job, ctx, done) {
     case 'chatter':
       fmt.log({
         type: 'info',
-        msg: `Worker has Chatter message from ${job.data.sender}, requesting ${job.data.text}`
+        msg: `Worker has Chatter message from ${job.data.sender}, requesting '${job.data.text}'`
       })
 
     default:

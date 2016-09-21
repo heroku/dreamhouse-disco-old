@@ -31,14 +31,15 @@ class TravoltaController {
 
     let job = q.create('track', track)
 
-    job.attempts(3).ttl(5000)
+    const ATTEMPTS = 3
+    job.attempts(ATTEMPTS).ttl(5000)
 
     job.on('failed attempt', function(err, doneAttempts){
-      console.log(`Worker failed to complete job, this is attempt ${doneAttempts} of 3`)
+      console.log(`Worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
     })
 
     job.on('failed', function(err) {
-      console.log('Worker failed to complete job,',err)
+      console.log(`Worker failed to complete job after ${ATTEMPTS} attempts,`,err)
     })
 
     job.save(function(err) {
