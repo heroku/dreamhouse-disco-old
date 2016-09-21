@@ -14,6 +14,7 @@ module.exports = {
   verbose: util.bool(process.env.VERBOSE) || false,
   cache: util.bool(process.env.VIEW_CACHE) || true,
   database: process.env.DATABASE_URL || '',
+  forceDbRebuild: util.bool(process.env.FORCE_DB_REBUILD) || false,
   rdio: {
     clientID: process.env.RDIO_CLIENT_ID || '',
     clientSecret: process.env.RDIO_CLIENT_SECRET || '',
