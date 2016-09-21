@@ -20,19 +20,44 @@ class AuthController {
   routes() {
     this.router.get('/', this._get.bind(this))
     this.router.get('/callback', this._getCallback.bind(this))
+    this.router.get('/logout', this._getLogout.bind(this))
 
     return this.router
   }
 
   _get(req, res) {
-    let protocol = req.get('X-Forwarded-Proto') || req.protocol
-    let authUri = oauth2.authCode.authorizeURL({
-      redirect_uri: protocol + '://' + req.get('host') + '/api/auth/callback',
-      response_type: 'code',
-      scope: 'playlist-modify-public playlist-modify-private',
-      show_dialog: true
+    // If account already exists, just login
+    db.Account.findOne({ })
+    .then(function(acct) {
+      if (acct) {
+
+        // Set session information
+        req.session.spotifyId       = acct.get('id');
+        req.session.smsNumber       = acct.get('number');
+        req.session.display_number  = acct.get('display_number');
+        req.session.display_name    = acct.get('display_name');
+        req.session.save();
+
+        // Redirect to React auth route
+        res.redirect(config.url +
+          `/#/auth?id=${encodeURIComponent(acct.get('id'))}` +
+          `&number=${encodeURIComponent(acct.get('number'))}` +
+          `&name=${encodeURIComponent(acct.get('display_name'))}` +
+          `&displayNumber=${encodeURIComponent(acct.get('display_number'))}`
+        )
+      } else {
+
+        // Do Spotify OAuth
+        let protocol = req.get('X-Forwarded-Proto') || req.protocol
+        let authUri = oauth2.authCode.authorizeURL({
+          redirect_uri: protocol + '://' + req.get('host') + '/api/auth/callback',
+          response_type: 'code',
+          scope: 'playlist-modify-public playlist-modify-private',
+          show_dialog: true
+        })
+        res.redirect(authUri)
+      }
     })
-    res.redirect(authUri)
   }
 
   _getCallback(req, res) {
@@ -70,9 +95,9 @@ class AuthController {
                 msg: `User has been created and authenticated - ${rawUser.id}`
               })
 
-              return db.Account.findOne({
-                where: { id: rawUser.id },
-                include: [{ model: db.Playlist }]
+              return db.Account.findOne({ })
+              .then(function(acct) {
+                return acct
               })
             })
             .then(function(account) {
@@ -117,31 +142,13 @@ class AuthController {
                     `&name=${encodeURIComponent(account.get('display_name'))}` +
                     `&displayNumber=${encodeURIComponent(account.get('display_number'))}`
                   )
-                  console.log(body)
+
                   fmt.log({
                     type: 'warning',
                     msg: `Registration with Travolta failed (${body.status}: ${body.error}). FB chat track requests will not work.`
                   })
                 }
               })
-
-
-              // if (account.get('Playlists').length > 0) return
-
-              // Create a default playlist if the user doesn't have any playlists
-              // return db.Playlist.create({
-              //     name: 'Default Playlist',
-              //     description: 'The Default Playlist',
-              //     active: true
-              //   })
-              //   .then(function(playlist) {
-              //     fmt.log({
-              //       type: 'info',
-              //       msg: `a default playlist has been created/updated`
-              //     })
-              //
-              //     return account.addPlaylist(playlist)
-              //   })
             })
             .catch(function(err) {
               fmt.error(err)
@@ -151,6 +158,18 @@ class AuthController {
     }
   }
 
+  _getLogout(req, res) {
+    db.Account.destroy({ truncate: true, cascade: true })
+    .then(function(data) {
+      fmt.log({
+        type: 'info',
+        msg: 'User logged out'
+      })
+
+      // Return 200
+      res.json({})
+    })
+  }
 }
 
 module.exports = new AuthController()

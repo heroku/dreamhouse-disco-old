@@ -22,8 +22,8 @@ class SmsController {
   }
 
   _post(req, res) {
-    let opts = { where: { number: req.body.To } }
-    db.Account.findOne(opts).then(function(acct) {
+    db.Account.findOne({ })
+    .then(function(acct) {
       if (!acct) {
         let err = new Error(`No account found, have you auth'd with Spotify?`)
         fmt.log({ type: 'warning', msg: err })

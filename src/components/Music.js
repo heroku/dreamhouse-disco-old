@@ -30,8 +30,8 @@ class Music extends Component {
     // TODO: replace hard-coded playlist with create or use existing playlist option:
     //  - select existing playlist from list
     //  - create new playlist
-    this.props.fetchPlaylist('1WCoOeyBzRcWQfcFaJObFZ')
-    this.timer = setInterval(() => this.props.fetchPlaylist('1WCoOeyBzRcWQfcFaJObFZ'), 5000)
+    this.props.fetchPlaylist()
+    this.timer = setInterval(() => this.props.fetchPlaylist(), 5000)
   }
 
   componentWillUnmount() {

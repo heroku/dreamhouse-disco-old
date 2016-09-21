@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export function fetchPlaylist(id) {
+export function fetchPlaylist() {
   return function(dispatch) {
     dispatch({type: 'FETCH_PLAYLIST'})
-    return axios.get('/api/playlist/' + id)
+    return axios.get('/api/playlist')
       .then((response) => {
         dispatch({type: 'FETCH_PLAYLIST_FULFILLED', payload: response.data})
       })

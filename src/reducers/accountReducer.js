@@ -1,5 +1,5 @@
 export default function reducer(state={
-  account: {},
+  account: JSON.parse(localStorage.getItem('account')) || {},
   fetching: false,
   fetched: false,
   error: null
@@ -18,8 +18,11 @@ export default function reducer(state={
     case 'ACCOUNT_LOGGED_IN': {
       return {...state, account: action.payload}
     }
-    case 'ACCOUNT_LOGGED_OUT': {
+    case 'LOGOUT_FULFILLED': {
       return {...state, fetched: false, account: {}}
+    }
+    case 'LOGOUT_REJECTED': {
+      return state
     }
     default: {
       return state;
