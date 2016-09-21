@@ -786,3 +786,30 @@ form small {
       display: inline-block; }
     .products .product span {
       display: block; }
+
+.setup {
+  margin: 20px; }
+  .setup .input-element {
+    margin: 20px 0; }
+  .setup input {
+    margin: 0;
+    padding: 0;
+    border: none;
+    display: inline-block;
+    width: 30%;
+    border: none; }
+  .setup input, .setup span {
+    padding: 0;
+    margin: 0; }
+  .setup span.value {
+    border: 1px solid #999;
+    background-color: #eee;
+    padding: 3px; }
+  .setup .invalid {
+    outline-color: orangered !important; }
+  .setup .editable {
+    background-color: yellow; }
+  .setup .loading {
+    color: grey;
+    font-style: italic;
+    cursor: wait; }

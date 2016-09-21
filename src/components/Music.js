@@ -40,7 +40,11 @@ class Music extends Component {
 
   render() {
     let { displayNumber, number } = this.props.account
-    if (!displayNumber || displayNumber === '' || displayNumber === undefined) displayNumber = number
+    if (!displayNumber || displayNumber === '' ||
+        displayNumber === undefined || displayNumber === 'null') {
+      displayNumber = number.slice()
+      number = ''
+    }
 
     let nowPlayingTrack = this.props.tracks.length > 0 ? this.props.tracks[0] : null
     let upNextTrack = this.props.tracks.length > 1 ? this.props.tracks[1] : null
