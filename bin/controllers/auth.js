@@ -145,7 +145,7 @@ class AuthController {
 
                   fmt.log({
                     type: 'warning',
-                    msg: `Registration with Travolta failed (${body.status}: ${body.error}). FB chat track requests will not work.`
+                    msg: `Registration with Travolta failed (${body.status}: ${body.error}). FB Messenger and Chatter track requests will not work.`
                   })
                 }
               })
