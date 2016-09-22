@@ -17,7 +17,7 @@ module.exports = {
   forceDbRebuild: util.bool(process.env.FORCE_DB_REBUILD) || false,
   travolta: {
     registerUrl: process.env.TRAVOLTA_REGISTER_URL || 'http://travolta-production.herokuapp.com/disco_registrations'
-  }
+  },
   rdio: {
     clientID: process.env.RDIO_CLIENT_ID || '',
     clientSecret: process.env.RDIO_CLIENT_SECRET || '',
