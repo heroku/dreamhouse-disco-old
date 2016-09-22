@@ -1,3 +1,6 @@
+
+'use strict'
+
 let config = require('../config')
 let oauth2 = require('simple-oauth2')(config.spotify)
 let fmt = require('logfmt')
