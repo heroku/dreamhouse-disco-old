@@ -10,6 +10,7 @@ let _ = require('lodash')
 let request = require('request')
 let q = require('./lib/queue')
 let config = require('./config')
+let getValidToken = require('./lib/token')
 
 q.process('track', track)
 
@@ -102,60 +103,21 @@ function processRequest(job, ctx, done) {
       AccountId: acct.get('id')
     })
     .then(function(msg) {
-      // Make sure Spotify token isn't expired
-      let expireAt = moment(acct.get('expires_at'))
-      let now = moment()
-
-      if (expireAt.isBefore(now)) {
-        let err = new Error(`token expired ${expireAt.fromNow()}`)
-        fmt.log({ type: 'warning', msg: err })
-        done(err)
-        pauseWorker(ctx)
-        // TODO: add token refresh logic
-        // https://developer.spotify.com/web-api/authorization-guide/#authorization-code-flow
-        return
-      }
 
       // Search Spotify for track
-      var opts = {
-        auth: { 'bearer': acct.get('access_token') },
-        json: true
-      }
+      getValidToken(acct.get('oauth_token'))
+      .then(function(token) {
 
-      const query = msg.get('text')
-      let spotifySearchUri = `https://api.spotify.com/v1/search?q=${query}&type=track&market=from_token&limit=1`
-
-      request.get(spotifySearchUri, opts, function(err, res, body) {
-        // Check for HTTP error
-        if (err || res.statusCode ==! 200) {
-          fmt.log({
-            type: 'error',
-            msg: err.message || res.statusCode
-          })
-          done(err.message || res.statusCode)
-          return
+        var opts = {
+          auth: { 'bearer': token },
+          json: true
         }
 
-        // Check for at least one track returned
-        let tracks = body.tracks
-        if (!tracks || tracks.total === 0) {
-          fmt.log({
-            type: 'warning',
-            msg: 'Job complete: Spotify search yielded no result',
-            messageKey: msg.id,
-            request: msg.body
-          })
-          done()
-          return
-        }
+        const query = msg.get('text')
+        let spotifySearchUri = `https://api.spotify.com/v1/search?q=${query}&type=track&market=from_token&limit=1`
 
-        let track = tracks.items[0]
-
-        // Add track to playlist
-        const user = acct.get('id')
-        const playlist = acct.get('playlist_id')
-        let spotifyTrackAddUri = `https://api.spotify.com/v1/users/${user}/playlists/${playlist}/tracks?uris=${track.uri}`
-        request.post(spotifyTrackAddUri, opts, function(err, res, body) {
+        request.get(spotifySearchUri, opts, function(err, res, body) {
+          // Check for HTTP error
           if (err || res.statusCode ==! 200) {
             fmt.log({
               type: 'error',
@@ -165,22 +127,52 @@ function processRequest(job, ctx, done) {
             return
           }
 
-          fmt.log({
-            type: 'info',
-            msg: 'Job complete: Track added to the playlist',
-            messageKey: msg.id,
-            trackKey: track.uri
-          })
+          // Check for at least one track returned
+          let tracks = body.tracks
+          if (!tracks || tracks.total === 0) {
+            fmt.log({
+              type: 'warning',
+              msg: 'Job complete: Spotify search yielded no result',
+              messageKey: msg.id,
+              request: msg.body
+            })
+            done()
+            return
+          }
 
-          // Add track id to message record
-          msg.update({
-            track_id: track.uri
-          })
-          .then(function() {
-            done()  // done with job
-          })
-          .catch(function(err) {
-            throw new Error(err)
+          let track = tracks.items[0]
+
+          // Add track to playlist
+          const user = acct.get('id')
+          const playlist = acct.get('playlist_id')
+          let spotifyTrackAddUri = `https://api.spotify.com/v1/users/${user}/playlists/${playlist}/tracks?uris=${track.uri}`
+          request.post(spotifyTrackAddUri, opts, function(err, res, body) {
+            if (err || res.statusCode ==! 200) {
+              fmt.log({
+                type: 'error',
+                msg: err.message || res.statusCode
+              })
+              done(err.message || res.statusCode)
+              return
+            }
+
+            fmt.log({
+              type: 'info',
+              msg: 'Job complete: Track added to the playlist',
+              messageKey: msg.id,
+              trackKey: track.uri
+            })
+
+            // Add track id to message record
+            msg.update({
+              track_id: track.uri
+            })
+            .then(function() {
+              done()  // done with job
+            })
+            .catch(function(err) {
+              throw new Error(err)
+            })
           })
         })
       })

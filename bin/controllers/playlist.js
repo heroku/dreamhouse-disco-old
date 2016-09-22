@@ -5,6 +5,7 @@ let express = require('express')
 let db = require('../models')
 let _ = require('lodash')
 let request = require('request')
+let getValidToken = require('../lib/token')
 
 class PlaylistController {
 
@@ -24,15 +25,20 @@ class PlaylistController {
 
     this.db.Account.findOne({ })
       .then(function(acct) {
-        const opts = { auth: { 'bearer': acct.get('access_token') } }
-        const playlistUrl = 'https://api.spotify.com/v1/users/' + acct.get('id') + '/playlists/' + acct.get('playlist_id')
 
-        request.get(playlistUrl, opts, function(error, response, body) {
-          const playlist = JSON.parse(body)
-          // TODO: error handling
+        getValidToken(acct.get('oauth_token'))
+        .then(function(token) {
 
-          // edit returned playlist to identify current playing track
-          res.json(playlist)
+          const opts = { auth: { 'bearer': token } }
+          const playlistUrl = 'https://api.spotify.com/v1/users/' + acct.get('id') + '/playlists/' + acct.get('playlist_id')
+
+          request.get(playlistUrl, opts, function(error, response, body) {
+            const playlist = JSON.parse(body)
+            // TODO: error handling
+
+            // edit returned playlist to identify current playing track
+            res.json(playlist)
+          })
         })
       })
   }

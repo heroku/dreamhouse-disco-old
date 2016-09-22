@@ -19,6 +19,7 @@ module.exports = function(sequelize, DataTypes) {
 		token_type: DataTypes.ENUM('Bearer'),
 		refresh_token: DataTypes.STRING,
 		expires_at: DataTypes.DATE,
-		playlist_id: DataTypes.STRING
+		playlist_id: DataTypes.STRING,
+		oauth_token: DataTypes.JSON
 	})
 }
