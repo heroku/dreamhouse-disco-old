@@ -45,7 +45,7 @@ db.Playlist.belongsTo(db.Account)
 db.Message.belongsTo(db.Account)
 
 function initDb() {
-  return db.sequelize.sync({ force: config.FORCE_DB_REBUILD }).then(function() {
+  return db.sequelize.sync({ force: config.forceDbRebuild }).then(function() {
     fmt.log({ type: 'info', msg: 'Sequelize validated database state' })
   })
 }
