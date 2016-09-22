@@ -96,33 +96,50 @@ class AuthController {
               })
             })
             .then(function(account) {
+
               // Register with Travolta
               const travoltaOpts = {
                 json: true,
                 body: { app_name: req.hostname }
               }
-              request.post(`${process.env.TRAVOLTA_REGISTER_URL}`, travoltaOpts, function(error, response, body) {
+              request.post(`${config.travolta.registerUrl}`, travoltaOpts, function(error, response, body) {
                 if (!error && response.statusCode == 201) {
-                  // Set session information
-                  req.session.spotifyId       = account.get('id');
-                  req.session.smsNumber       = account.get('number');
-                  req.session.display_number  = account.get('display_number');
-                  req.session.display_name    = account.get('display_name');
-                  req.session.save();
 
-                  // Redirect to React auth route
-                  res.redirect(config.url +
-                    `/#/auth?id=${encodeURIComponent(account.get('id'))}` +
-                    `&number=${encodeURIComponent(account.get('number'))}` +
-                    `&name=${encodeURIComponent(account.get('display_name'))}` +
-                    `&displayNumber=${encodeURIComponent(account.get('display_number'))}`
-                  )
-
-                  fmt.log({
-                    type: 'info',
-                    msg: `Registered with Travolta: ${JSON.stringify(body)}`
+                  // Save Travolta room name and token
+                  account.update({
+                    travolta_token: body.token,
+                    travolta_room_name: body.room_name
                   })
-                } else {
+                  .then(function() {
+                    // Set session information
+                    req.session.spotifyId       = account.get('id');
+                    req.session.smsNumber       = account.get('number');
+                    req.session.display_number  = account.get('display_number');
+                    req.session.display_name    = account.get('display_name');
+                    req.session.save();
+
+                    // Redirect to React auth route
+                    res.redirect(config.url +
+                      `/#/auth?id=${encodeURIComponent(account.get('id'))}` +
+                      `&number=${encodeURIComponent(account.get('number'))}` +
+                      `&name=${encodeURIComponent(account.get('display_name'))}` +
+                      `&displayNumber=${encodeURIComponent(account.get('display_number'))}`
+                    )
+
+                    fmt.log({
+                      type: 'info',
+                      msg: `Registered with Travolta: ${JSON.stringify(body)}`
+                    })
+                  })
+                  .catch(function(err) {
+                    fmt.log({
+                      type: 'error',
+                      msg: `Error saving Travolta token and/or room_name.`,
+                      error: err
+                    })
+                  })
+
+                } else { // if error registering with Travolta
                   // Set session information
                   req.session.spotifyId       = account.get('id');
                   req.session.smsNumber       = account.get('number');

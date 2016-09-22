@@ -20,6 +20,8 @@ module.exports = function(sequelize, DataTypes) {
 		refresh_token: DataTypes.STRING,
 		expires_at: DataTypes.DATE,
 		playlist_id: DataTypes.STRING,
+		travolta_token: DataTypes.STRING,
+		travolta_room_name: DataTypes.STRING,
 		oauth_token: DataTypes.JSON
 	})
 }
