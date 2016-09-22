@@ -81,23 +81,6 @@ class TravoltaController {
       }
     })
   }
-
-  // returns true or false
-  isAllowed(req) {
-    const authHeaderValue = req.get('Authorization')
-    return db.Account.findOne({ })
-    .then(function(acct) {
-      const isValid = (`Bearer ${acct.get('travolta_token')}` === authHeaderValue)
-      if (!isValid) {
-        fmt.log({
-          type: 'error',
-          msg: `Received invalid or missing auth token in Travolta request Authorization header: ${authHeaderValue}`
-        })
-      }
-
-      return isValid
-    })
-  }
 }
 
 module.exports = new TravoltaController()
