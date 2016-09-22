@@ -102,7 +102,7 @@ class AuthController {
                 json: true,
                 body: { app_name: req.hostname }
               }
-              request.post(`${process.env.TRAVOLTA_REGISTER_URL}`, travoltaOpts, function(error, response, body) {
+              request.post(`${config.travolta.registerUrl}`, travoltaOpts, function(error, response, body) {
                 if (!error && response.statusCode == 201) {
 
                   // Save Travolta room name and token
