@@ -52,7 +52,7 @@ class AuthController {
         let authUri = oauth2.authCode.authorizeURL({
           redirect_uri: protocol + '://' + req.get('host') + '/api/auth/callback',
           response_type: 'code',
-          scope: 'playlist-modify-public playlist-modify-private',
+          scope: 'playlist-modify-public playlist-modify-private user-read-private',
           show_dialog: true
         })
         res.redirect(authUri)
