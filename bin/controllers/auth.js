@@ -81,12 +81,7 @@ class AuthController {
 
       request.get('https://api.spotify.com/v1/me/', opts, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-          var rawUser = _.merge(body, {
-            access_token: token.token.access_token,
-            refresh_token: token.token.refresh_token,
-            expires_at: token.token.expires_at,
-            token_type: token.token.token_type
-          })
+          var rawUser = _.merge(body, { oauth_token: result })
 
           db.Account.upsert(rawUser)
             .then(function(account) {
