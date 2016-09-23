@@ -4,6 +4,7 @@
 let config = require('../config')
 let oauth2 = require('simple-oauth2')(config.spotify)
 let fmt = require('logfmt')
+let _ = require('lodash')
 
 function getValidToken(acct) {
 
@@ -11,6 +12,7 @@ function getValidToken(acct) {
 
   // save original expires_at date b/c the wrapper stomps on it
   let origExpiresAt = new Date(oldToken.expires_at)
+  let origRefreshToken = oldToken.refresh_token
 
   // Create the access token wrapper
   const token = oauth2.accessToken.create(oldToken)
@@ -29,7 +31,7 @@ function getValidToken(acct) {
     return token.refresh()
       .then((result) => {
         return acct.update({
-          oauth_token: result.token
+          oauth_token: _.merge(result.token, { refresh_token: origRefreshToken })
         })
         .then(() => {
           return result.token.access_token
