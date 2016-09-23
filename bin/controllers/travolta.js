@@ -25,13 +25,14 @@ class TravoltaController {
     const authHeaderValue = req.get('Authorization')
     return db.Account.findOne({ })
     .then(function(acct) {
-      let msg = 'No active Travolta registration found.'
-      fmt.log({
-        type: 'error',
-        msg: msg
-      })
-      
+
       if (!acct) {
+        let msg = 'No active Travolta registration found.'
+        fmt.log({
+          type: 'error',
+          msg: msg
+        })
+        
         res.status(404).json({ error: msg })
         return
       }
