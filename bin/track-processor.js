@@ -60,6 +60,10 @@ function track (job, ctx, done) {
         type: 'warning',
         msg: err
       })
+      fmt.log({
+        type: 'warning',
+        data: job.data
+      })
       done(err)
   }
 }
