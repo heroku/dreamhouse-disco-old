@@ -105,7 +105,7 @@ function processRequest(job, ctx, done) {
     .then(function(msg) {
 
       // Search Spotify for track
-      getValidToken(acct.get('oauth_token'))
+      getValidToken(acct)
       .then(function(token) {
 
         var opts = {
