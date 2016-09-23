@@ -5,10 +5,19 @@ let config = require('../config')
 let oauth2 = require('simple-oauth2')(config.spotify)
 let fmt = require('logfmt')
 
-function getValidToken(oldToken) {
+function getValidToken(acct) {
+
+  let oldToken = acct.get('oauth_token')
+
+  // save original expires_at date b/c the wrapper stomps on it
+  let origExpiresAt = new Date(oldToken.expires_at)
 
   // Create the access token wrapper
   const token = oauth2.accessToken.create(oldToken)
+
+  // set wrapper to proper expires_at date
+  token.token.expires_at = origExpiresAt.toISOString()
+
 
   // Check if the token is expired. If expired it is refreshed.
   if (token.expired()) {
@@ -19,13 +28,20 @@ function getValidToken(oldToken) {
 
     return token.refresh()
       .then((result) => {
-        const newToken = oauth2.accessToken.create(result)
         return acct.update({
-          oauth_token: result
+          oauth_token: result.token
         })
         .then(() => {
-          return oauth2.accessToken.create(result).token.access_token
+          return result.token.access_token
         })
+        .catch((err) => {
+          fmt.log({ type: 'error', msg: err })
+          throw err
+        })
+      })
+      .catch((err) => {
+        fmt.log({ type: 'error', msg: err })
+        throw err
       })
   } else {
     // Token valid. Don't refresh.

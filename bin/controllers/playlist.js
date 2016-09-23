@@ -26,7 +26,7 @@ class PlaylistController {
     this.db.Account.findOne({ })
       .then(function(acct) {
 
-        getValidToken(acct.get('oauth_token'))
+        getValidToken(acct)
         .then(function(token) {
 
           const opts = { auth: { 'bearer': token } }
