@@ -26,17 +26,23 @@ const select = function(store, ownProps) {
 
 
 class Music extends Component {
+  constructor(props) {
+    super(props)
+    this.onKeyDown = this.handleKeyDown.bind(this)
+  }
+
   componentDidMount() {
     // TODO: replace hard-coded playlist with create or use existing playlist option:
     //  - select existing playlist from list
     //  - create new playlist
     this.props.fetchPlaylist()
     this.timer = setInterval(() => this.props.fetchPlaylist(), 5000)
-    document.body.addEventListener('keydown', this.handleKeyDown.bind(this) )
+    document.body.addEventListener('keydown', this.onKeyDown)
   }
 
   componentWillUnmount() {
     clearInterval(this.timer)
+    document.body.removeEventListener('keydown', this.onKeyDown)
   }
 
   handleKeyDown(e) {
