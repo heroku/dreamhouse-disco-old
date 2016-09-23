@@ -62,7 +62,7 @@ function track (job, ctx, done) {
       })
       fmt.log({
         type: 'warning',
-        data: job.data
+        data: JSON.stringify(job.data)
       })
       done(err)
   }
