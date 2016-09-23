@@ -1,0 +1,18 @@
+// This creates a Track object any time someone posts on a Chatter feed.
+// The Track__c custom object only needs to have a name field.
+
+trigger ChatterFeedItem on FeedItem (before insert) {
+    List<Track__c> tracks = new List<Track__c>();
+    for(FeedItem item : Trigger.new){
+        system.debug(item);
+        Track__c newTrack = new Track__c();
+        newTrack.Name = item.Body;
+        tracks.add(newTrack);
+    }
+
+    try {
+        insert tracks;
+    } catch (system.DmlException e) {
+        system.debug(e);
+    }
+}
