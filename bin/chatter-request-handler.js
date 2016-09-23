@@ -38,19 +38,9 @@ function pollPg() {
       _.each(newTracks, function(trk) {
         let track = {}
 
-        track.body = trk.name
-        track.from = '+14159360869'
-        track.fromCity = 'SAN FRANCISCO'
-        track.fromCountry =  'US'
-        track.fromState =  'CA'
-        track.fromZip =  '94105'
-        track.from = 'Chatter'
-        track.title = 'Incoming Chatter song Request: ' + trk.name
-        track.to = '+14152148408'
-        track.toCity = 'SAN FRANCISCO'
-        track.toCountry = 'US'
-        track.toState = 'CA'
-        track.toZip = '94107'
+        track.type = 'chatter'
+        track.sender = 'chatter'
+        track.text = trk.name
 
         q.create('track', track).save(function (err) {
           if (!err) {
