@@ -64,6 +64,10 @@ function track (job, ctx, done) {
         type: 'warning',
         data: JSON.stringify(job.data)
       })
+      fmt.log({
+        type: 'warning',
+        data: JSON.stringify(job.data.type)
+      })
       done(err)
   }
 }
