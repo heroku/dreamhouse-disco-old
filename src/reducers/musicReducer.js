@@ -13,9 +13,11 @@ export default function reducer(state={
     case 'FETCH_PLAYLIST': {
       return {...state, fetching: true}
     }
+
     case 'FETCH_PLAYLIST_REJECTED': {
       return {...state, fetching: false, error: action.payload}
     }
+
     case 'FETCH_PLAYLIST_FULFILLED': {
       let newState = {
         ...state,
@@ -30,8 +32,8 @@ export default function reducer(state={
       }
       return newState
     }
-    case 'NEXT_TRACK': {
 
+    case 'NEXT_TRACK': {
       let newState = {...state}
       let tracks = state.music.tracks.items
       if (state.currentTrackIndex < tracks.length-1) {
@@ -42,6 +44,11 @@ export default function reducer(state={
       }
       return newState
     }
+
+    case 'TOGGLE_PLAY': {
+      return {...state, playing: !state.playing }
+    }
+
     default: {
       return state;
     }

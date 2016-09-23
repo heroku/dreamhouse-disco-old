@@ -18,3 +18,9 @@ export function nextTrack() {
     type: 'NEXT_TRACK'
   }
 }
+
+export function togglePlay() {
+  return {
+    type: 'TOGGLE_PLAY'
+  }
+}

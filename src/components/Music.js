@@ -7,7 +7,7 @@ import Track from './Track';
 
 import logo from '../../images/disco-chat-logo.png'
 
-import { fetchPlaylist, nextTrack } from '../actions/musicActions'
+import { fetchPlaylist, nextTrack, togglePlay } from '../actions/musicActions'
 
 const select = function(store, ownProps) {
   const { account, music } = store
@@ -32,10 +32,18 @@ class Music extends Component {
     //  - create new playlist
     this.props.fetchPlaylist()
     this.timer = setInterval(() => this.props.fetchPlaylist(), 5000)
+    document.body.addEventListener('keydown', this.handleKeyDown.bind(this) )
   }
 
   componentWillUnmount() {
     clearInterval(this.timer)
+  }
+
+  handleKeyDown(e) {
+    if (e.code === 'Space') {
+      e.preventDefault()
+      this.props.togglePlay()
+    }
   }
 
   render() {
@@ -58,13 +66,23 @@ class Music extends Component {
 
 
     return (
-      <div className='main demo'>
+      <div className='main demo' onKeyDown={ this.handleKeyDown }>
 
         <header>
           <a href='#' className='logo'>
             <img src={ logo } alt='Smiley face'/>
             <h1>Dreamhouse<strong>Disco</strong></h1>
           </a>
+          <div id="audio-player">
+            <ReactPlayer
+              url={ this.props.currentTrack }
+              playing={ this.props.isPlaying }
+              controls={ false }
+              height={ 30 }
+              width={ 200 }
+              onEnded={ () => this.props.nextTrack() }
+            />
+        </div>
           <p className='byline'>a demo app running on <a href='https://www.heroku.com/' className='logo-heroku'>Heroku</a></p>
         </header>
 
@@ -107,24 +125,9 @@ class Music extends Component {
             </footer>
           </div>
         </div>
-
-        {/*
-        <div className='playlist-container'>
-          // TODO: Clean-up ugly musicReducer code behind this
-          <div className='player'>
-            <ReactPlayer
-              url={ this.props.currentTrack }
-              playing={ this.props.isPlaying }
-              controls={ true }
-              height={ 75 }
-              onEnded={ () => this.props.nextTrack() }
-            />
-          </div>
-          <div className='playlist'> { tracks } </div>
-        </div> */}
       </div>
     )
   }
 }
 
-export default connect(select, { fetchPlaylist, nextTrack })(Music);
+export default connect(select, { fetchPlaylist, nextTrack, togglePlay })(Music);
