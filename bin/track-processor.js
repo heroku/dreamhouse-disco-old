@@ -72,20 +72,14 @@ function track (job, ctx, done) {
         type: 'info',
         msg: `Worker has Chatter message from ${job.data.sender}, requesting '${job.data.text}'`
       })
+      processRequest(job, ctx, done)
+      break;
 
     default:
       const err = new Error('Unknown message type. Skipping.')
       fmt.log({
         type: 'warning',
         msg: err
-      })
-      fmt.log({
-        type: 'warning',
-        data: JSON.stringify(job.data)
-      })
-      fmt.log({
-        type: 'warning',
-        data: JSON.stringify(job.data.type)
       })
       done(err)
   }
