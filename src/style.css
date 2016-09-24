@@ -622,6 +622,16 @@ header {
         right: -20px;
         top: -20px;
         background: url("../images/icon-now-playing.svg") no-repeat center center; }
+      @media screen and (max-height: 650px) {
+        .player .track.now-playing {
+          min-height: 120px;
+          padding: 10px 20px 10px 120px;
+          position: relative; }
+          .player .track.now-playing img {
+            width: 100px;
+            position: absolute;
+            left: 10px;
+            top: 10px; } }
     .player .track.on-deck, .player .track.submitted {
       min-height: 120px;
       padding: 10px 20px 10px 120px;
