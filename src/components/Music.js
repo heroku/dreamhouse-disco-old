@@ -44,7 +44,8 @@ class Music extends Component {
   }
 
   handleKeyDown(e) {
-    if (e.code === 'Space') {
+    console.log(e)
+    if (e.keyCode === 32) {
       e.preventDefault()
       this.props.togglePlay()
     }
@@ -84,8 +85,8 @@ class Music extends Component {
               url={ this.props.currentTrack }
               playing={ this.props.isPlaying }
               controls={ false }
-              height={ 30 }
-              width={ 200 }
+              height={ 0 }
+              width={ 0 }
               onEnded={ () => this.props.nextTrack() }
             />
         </div>
