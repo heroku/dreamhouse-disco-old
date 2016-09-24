@@ -35,6 +35,13 @@ header {
     }
   }
 
+  #audio-player {
+    opacity: 0;
+    @media (max-width: $bp-small) {
+      width: 0;
+    }
+  }
+
   .byline {
     text-align: right;
     font-weight: 100;

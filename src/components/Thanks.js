@@ -46,51 +46,81 @@ class Thanks extends React.Component {
           <div className='playlist'>
             <ol className='tracks'>
               <li className='track'>
+                <span className='track-artwork'>
+                  <img src={ placeholder } />
+                </span>
                 <span className='track-title'>MMMBop</span>
                 <span className='track-artist'>Hanson</span>
                 <span className='track-time'>3:34</span>
               </li>
               <li className='track'>
+                <span className='track-artwork'>
+                  <img src={ placeholder } />
+                </span>
                 <span className='track-title'>MMMBop</span>
                 <span className='track-artist'>Hanson</span>
                 <span className='track-time'>3:34</span>
               </li>
               <li className='track'>
+                <span className='track-artwork'>
+                  <img src={ placeholder } />
+                </span>
                 <span className='track-title'>MMMBop</span>
                 <span className='track-artist'>Hanson</span>
                 <span className='track-time'>3:34</span>
               </li>
               <li className='track'>
+                <span className='track-artwork'>
+                  <img src={ placeholder } />
+                </span>
                 <span className='track-title'>MMMBop</span>
                 <span className='track-artist'>Hanson</span>
                 <span className='track-time'>3:34</span>
               </li>
               <li className='track'>
+                <span className='track-artwork'>
+                  <img src={ placeholder } />
+                </span>
                 <span className='track-title'>MMMBop</span>
                 <span className='track-artist'>Hanson</span>
                 <span className='track-time'>3:34</span>
               </li>
               <li className='track'>
+                <span className='track-artwork'>
+                  <img src={ placeholder } />
+                </span>
                 <span className='track-title'>MMMBop</span>
                 <span className='track-artist'>Hanson</span>
                 <span className='track-time'>3:34</span>
               </li>
               <li className='track'>
+                <span className='track-artwork'>
+                  <img src={ placeholder } />
+                </span>
                 <span className='track-title'>MMMBop</span>
                 <span className='track-artist'>Hanson</span>
                 <span className='track-time'>3:34</span>
               </li>
               <li className='track'>
+                <span className='track-artwork'>
+                  <img src={ placeholder } />
+                </span>
                 <span className='track-title'>MMMBop</span>
                 <span className='track-artist'>Hanson</span>
                 <span className='track-time'>3:34</span>
               </li>
               <li className='track'>
+                <span className='track-artwork'>
+                  <img src={ placeholder } />
+                </span>
                 <span className='track-title'>MMMBop</span>
                 <span className='track-artist'>Hanson</span>
                 <span className='track-time'>3:34</span>
               </li>
               <li className='track'>
+                <span className='track-artwork'>
+                  <img src={ placeholder } />
+                </span>
                 <span className='track-title'>MMMBop</span>
                 <span className='track-artist'>Hanson</span>
                 <span className='track-time'>3:34</span>

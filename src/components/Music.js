@@ -123,10 +123,16 @@ class Music extends Component {
             </ol>
             <footer>
               <div className='track-count'><span>{ tracks.length }</span> tracks</div>
-              <div className='sms-number'>
-                <span>text a track to </span>
-                <strong>{ displayNumber }</strong>
-                <span className='alt-number'>{ number }</span>
+              <div className='request-track'>
+                <div className='sms-number'>
+                  <span>text a track to </span>
+                  <strong>{ displayNumber }</strong>
+                  <span className='alt-number'>{ number }</span>
+                </div>
+                <div className='fb-bot'>
+                  <p>request a track via <a href='https://www.facebook.com/dreamhousedisco'>fb.me/dreamhousedisco</a></p>
+                  <small>You are in the <strong>LIVING ROOM</strong></small>
+                </div>
               </div>
             </footer>
           </div>
