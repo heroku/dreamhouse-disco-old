@@ -44,7 +44,6 @@ class Music extends Component {
   }
 
   handleKeyDown(e) {
-    console.log(e)
     if (e.keyCode === 32) {
       e.preventDefault()
       this.props.togglePlay()
