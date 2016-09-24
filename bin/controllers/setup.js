@@ -29,8 +29,9 @@ class SetupController {
       res.json({
         number: acct.get('number'),
         displayNumber: acct.get('display_number'),
-        playlistId: acct.get('playlist_id'),
-        playlistPrependText: `spotify:user:${acct.get('id')}:playlist:`
+        playlistId: `spotify:user:${acct.get('id')}:playlist:${acct.get('playlist_id')}`,
+        playlistPrependTextV1: `spotify:user:${acct.get('id')}:playlist:1WCoOeyBzRcWQfcFaJObFZ`,
+        playlistPrependTextV2: `https://play.spotify.com/user/${acct.get('id')}/playlist/1WCoOeyBzRcWQfcFaJObFZ`
       })
     })
   }
@@ -41,6 +42,16 @@ class SetupController {
     .then(function(acct) {
       let updateKeys = _.map(_.keys(req.body), _.snakeCase)
       let update = _.zipObject(updateKeys, _.values(req.body))
+
+      // standardize update value since multiple values are valid
+      let playlist_id = update.playlist_id
+      if (playlist_id.match(/^https:/)) {
+        playlist_id = _.last(playlist_id.split('/'))
+      } else {
+        playlist_id = _.last(playlist_id.split(':'))
+      }
+      update.playlist_id = playlist_id
+
       acct.update(
         update,
         { fields: [ 'number', 'display_number', 'playlist_id' ] }
@@ -54,8 +65,9 @@ class SetupController {
           res.json({
             number: acct.get('number'),
             displayNumber: acct.get('display_number'),
-            playlistId: acct.get('playlist_id'),
-            playlistPrependText: `spotify:user:${acct.get('id')}:playlist:`
+            playlistId: `spotify:user:${acct.get('id')}:playlist:${acct.get('playlist_id')}`,
+            playlistPrependTextV1: `spotify:user:${acct.get('id')}:playlist:${acct.get('playlist_id')}`,
+            playlistPrependTextV2: `https://play.spotify.com/user/${acct.get('id')}/playlist/${acct.get('playlist_id')}`
           })
         })
       })
