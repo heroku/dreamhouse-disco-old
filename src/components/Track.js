@@ -16,6 +16,9 @@ class Track extends React.Component {
    // console.log(track.name, upNow, upNext)
     return (
       <li className='track' id={ track.key }>
+        <span className='track-artwork'>
+          <img src={ track.album.images[0].url } alt={ track.album.name }/>
+        </span>
         <span className='track-title'>{ track.name }</span>
         <span className='track-artist'>{ track.artists[0].name }</span>
         <span className='track-time'>{ this.formatDuration(track.duration_ms) }</span>

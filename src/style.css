@@ -670,7 +670,7 @@ header {
     overflow: auto;
     height: 100%; }
   .playlist .track {
-    padding: 20px 5px;
+    padding: 15px 5px;
     position: relative;
     border-bottom: 1px solid #d6d6d6;
     font-size: 15px; }
@@ -689,14 +689,23 @@ header {
     .playlist .track span {
       display: inline-block;
       vertical-align: middle; }
+  .playlist .track-artwork {
+    width: 50px;
+    height: 50px;
+    padding-right: 10px; }
+    .playlist .track-artwork img {
+      width: 100%;
+      margin-top: 5px;
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px #ddd; }
   .playlist .track-title {
-    width: calc((60% - 30px));
+    width: calc((60% - 50px));
     padding-right: 30px; }
   .playlist .track-artist {
-    width: calc((40% - 30px));
+    width: calc((40% - 50px));
     padding-right: 15px; }
   .playlist .track-time {
-    width: 60px;
+    width: 50px;
     text-align: right; }
   .playlist footer {
     padding: 15px;
