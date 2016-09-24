@@ -709,7 +709,7 @@ header {
     width: 50px;
     text-align: right; }
   .playlist footer {
-    padding: 15px;
+    padding: 10px 15px 20px;
     display: -webkit-box;
     display: -moz-box;
     display: box;
@@ -738,23 +738,22 @@ header {
       font-style: normal;
       font-weight: 400;
       color: white; }
-  .playlist .sms-number {
-    text-align: right; }
-    .playlist .sms-number span, .playlist .sms-number strong {
-      display: inline-block;
-      vertical-align: middle; }
-    .playlist .sms-number strong {
-      margin-left: 10px;
-      font-size: 20px; }
-      .playlist .sms-number strong:before {
-        content: '';
-        width: 25px;
-        height: 13px;
-        margin-right: 10px;
+  .playlist .request-track {
+    text-align: right;
+    font-size: 15px; }
+    .playlist .request-track .sms-number {
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #ccc; }
+      .playlist .request-track .sms-number span, .playlist .request-track .sms-number strong {
         display: inline-block;
-        background: url("../images/icon-arrow.svg") no-repeat center center; }
-    .playlist .sms-number .alt-number {
-      display: block;
+        vertical-align: middle;
+        margin-left: 10px; }
+      .playlist .request-track .sms-number strong {
+        font-size: 18px; }
+    .playlist .request-track .alt-number {
+      margin-left: 10px;
+      display: inline-block;
       font-style: italic;
       opacity: .7; }
 
