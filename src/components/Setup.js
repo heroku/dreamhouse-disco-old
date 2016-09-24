@@ -28,7 +28,7 @@ class Setup extends Component {
         <br/>
         <div className="input-element">
           <span>Playlist URI: </span>
-          <span className="value">{this.props.setup.playlistPrependText}
+          <span className="value">
             <RIEInput
               value={this.props.setup.playlistId || '-----'}
               change={this.onBlur.bind(this)}
@@ -37,7 +37,11 @@ class Setup extends Component {
               classLoading="loading"
               classInvalid="invalid" />
           </span>
-          <span> The last piece of the Spotify Playlist URI from which to play (In Spotify app, right-click on playlist -> Copy Spotify URI)</span>
+          <p>The Spotify Playlist URI from which to play (In Spotify app, right-click on playlist ⇢ Copy Spotify URI)</p>
+          <p>Should look like this:</p>
+          <pre>{this.props.setup.playlistPrependTextV1}</pre>
+          <p>or this:</p>
+          <pre>{this.props.setup.playlistPrependTextV2}</pre>
         </div>
 
         <div className="input-element">
