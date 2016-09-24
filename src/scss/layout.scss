@@ -17,6 +17,7 @@
     .playlist-container {
       @include display(flex);
       @include flex(1 1 auto);
+      height: calc(100vh - 70px);
     }
 
     .player,

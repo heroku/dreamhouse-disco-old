@@ -349,7 +349,8 @@ a {
       -webkit-flex: 1 1 auto;
       -moz-flex: 1 1 auto;
       -ms-flex: 1 1 auto;
-      flex: 1 1 auto; }
+      flex: 1 1 auto;
+      height: calc(100vh - 70px); }
     .main.demo .player,
     .main.demo .playlist {
       -webkit-box-flex: 1;
@@ -610,7 +611,7 @@ header {
         margin-bottom: 10px;
         display: block; }
       .player .track.now-playing .track-title {
-        font-size: 18px; }
+        font-size: 17px; }
       .player .track.now-playing .track-artist {
         font-size: 14px; }
       .player .track.now-playing:after {
