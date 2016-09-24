@@ -493,6 +493,11 @@ header {
           font-size: 16px; } }
       header .logo h1 strong {
         font-weight: 400; }
+  header #audio-player {
+    opacity: 0; }
+    @media (max-width: 600px) {
+      header #audio-player {
+        width: 0; } }
   header .byline {
     text-align: right;
     font-weight: 100;
@@ -661,7 +666,9 @@ header {
     -webkit-flex: 1 1 auto;
     -moz-flex: 1 1 auto;
     -ms-flex: 1 1 auto;
-    flex: 1 1 auto; }
+    flex: 1 1 auto;
+    overflow: auto;
+    height: 100%; }
   .playlist .track {
     padding: 20px 5px;
     position: relative;
