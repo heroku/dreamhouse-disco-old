@@ -51,7 +51,7 @@ class Music extends Component {
   }
 
   render() {
-    let { displayNumber, number } = this.props.account
+    let { displayNumber, number, roomName } = this.props.account
     if (!displayNumber || displayNumber === '' ||
         displayNumber === undefined || displayNumber === 'null') {
       displayNumber = number.slice()
@@ -131,7 +131,7 @@ class Music extends Component {
                 </div>
                 <div className='fb-bot'>
                   <p>request a track via <a href='https://www.facebook.com/dreamhousedisco'>fb.me/dreamhousedisco</a></p>
-                  <small>You are in the <strong>LIVING ROOM</strong></small>
+                  <small>You are in the <strong>{ roomName.toUpperCase() }</strong></small>
                 </div>
               </div>
             </footer>
