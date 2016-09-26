@@ -43,14 +43,16 @@ class SetupController {
       let updateKeys = _.map(_.keys(req.body), _.snakeCase)
       let update = _.zipObject(updateKeys, _.values(req.body))
 
-      // standardize update value since multiple values are valid
+      // standardize playlist_id value since multiple values are valid
       let playlist_id = update.playlist_id
-      if (playlist_id.match(/^https:/)) {
-        playlist_id = _.last(playlist_id.split('/'))
-      } else {
-        playlist_id = _.last(playlist_id.split(':'))
+      if (playlist_id) {
+        if (playlist_id.match(/^https:/)) {
+          playlist_id = _.last(playlist_id.split('/'))
+        } else {
+          playlist_id = _.last(playlist_id.split(':'))
+        }
+        update.playlist_id = playlist_id
       }
-      update.playlist_id = playlist_id
 
       acct.update(
         update,
