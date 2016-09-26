@@ -18,13 +18,7 @@ module.exports = {
   travolta: {
     registerUrl: process.env.TRAVOLTA_REGISTER_URL || 'http://travolta-production.herokuapp.com/disco_registrations'
   },
-  rdio: {
-    clientID: process.env.RDIO_CLIENT_ID || '',
-    clientSecret: process.env.RDIO_CLIENT_SECRET || '',
-    site: 'https://www.rdio.com',
-    authorizationPath: '/oauth2/authorize',
-    tokenPath: '/oauth2/token'
-  },
+  caseyUrl: process.env.CASEY_URL,
   spotify: {
     clientID: process.env.SPOTIFY_CLIENT_ID || '',
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET || '',
