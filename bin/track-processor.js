@@ -4,7 +4,6 @@
 let fmt = require('logfmt')
 let path = require('path')
 let kue = require('kue')
-let moment = require('moment')
 let db = require('./models')
 let _ = require('lodash')
 let request = require('request')
@@ -13,24 +12,6 @@ let config = require('./config')
 let getValidToken = require('./lib/token')
 
 q.process('track', track)
-
-// const validFields = [
-//   'accountSid',
-//   'messageSid',
-//   'smsMessageSid',
-//   'smsSid',
-//   'body',
-//   'from',
-//   'fromCity',
-//   'fromCountry',
-//   'fromState',
-//   'fromZip',
-//   'to',
-//   'toCity',
-//   'toCountry',
-//   'toState',
-//   'toZip',
-// ]
 
 function pauseWorker (ctx) {
   ctx.pause(1000, function (err) {
@@ -99,6 +80,7 @@ function processRequest(job, ctx, done) {
       type: job.data.type,
       sender: job.data.sender,
       text: job.data.text,
+      short_code: job.data.shortCode
       raw_message: job.data,
       AccountId: acct.get('id')
     })
@@ -168,6 +150,35 @@ function processRequest(job, ctx, done) {
               track_id: track.uri
             })
             .then(function() {
+              // if we got a short code from casey, queue that job now
+              if ( msg.get('short_code') ) {
+                const personalizedPlaylist = {
+                  trackId: track.uri,
+                  shortCode: msg.get('short_code')
+                }
+
+                let job = q.create('personalized-playlist', personalizedPlaylist)
+                const ATTEMPTS = 3
+
+                job.attempts(ATTEMPTS).ttl(5000)
+
+                job.on('failed attempt', function(err, doneAttempts){
+                  console.log(`Worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
+                })
+
+                job.on('failed', function(err) {
+                  console.log(`Worker failed to complete job after ${ATTEMPTS} attempts,`,err)
+                })
+                
+                job.save((err) => {
+                  if (!err) {
+                    fmt.log({
+                      type: 'info',
+                      msg: `Track request received, added to Redis queue`
+                    })
+                  }
+                })
+              }
               done()  // done with job
             })
             .catch(function(err) {
