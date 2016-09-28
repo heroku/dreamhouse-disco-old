@@ -610,10 +610,49 @@ header {
         width: 100%;
         margin-bottom: 10px;
         display: block; }
-      .player .track.now-playing .track-title {
-        font-size: 17px; }
-      .player .track.now-playing .track-artist {
-        font-size: 14px; }
+      .player .track.now-playing #track-controls {
+        position: relative; }
+        .player .track.now-playing #track-controls a {
+          display: block;
+          position: absolute;
+          cursor: pointer; }
+          .player .track.now-playing #track-controls a:hover {
+            opacity: 1; }
+        .player .track.now-playing #track-controls .track-play,
+        .player .track.now-playing #track-controls .track-pause {
+          width: 76px;
+          height: 76px;
+          left: 50%;
+          top: 50%;
+          margin-top: -38px;
+          margin-left: -38px;
+          background: no-repeat center center;
+          background-size: contain;
+          text-indent: -9999em; }
+        .player .track.now-playing #track-controls .track-pause {
+          background-image: url("../images/audio-pause.svg"); }
+        .player .track.now-playing #track-controls .track-play {
+          background-image: url("../images/audio-play.svg"); }
+        .player .track.now-playing #track-controls .track-next {
+          width: 100%;
+          padding: 10px;
+          left: 0;
+          bottom: 0;
+          background: rgba(23, 52, 78, 0.8) url("../images/audio-next.svg") no-repeat 95% center;
+          text-transform: uppercase;
+          font-size: 12px;
+          color: white; }
+      .player .track.now-playing.playing #track-controls a {
+        opacity: 0;
+        transition: .2s opacity; }
+      .player .track.now-playing.playing:hover #track-controls .track-next,
+      .player .track.now-playing.playing:hover #track-controls .track-pause {
+        opacity: 1; }
+      .player .track.now-playing.paused img {
+        opacity: .3; }
+      .player .track.now-playing.paused #track-controls .track-pause,
+      .player .track.now-playing.paused #now-playing-icon {
+        display: none; }
 
 @-webkit-keyframes audio {
   0% {
@@ -668,6 +707,10 @@ header {
           -webkit-animation: audio 2s 2s ease-out infinite;
           -moz-animation: audio 2s 2s ease-out infinite;
           animation: audio 2s 2s ease-out infinite; }
+      .player .track.now-playing .track-title {
+        font-size: 17px; }
+      .player .track.now-playing .track-artist {
+        font-size: 14px; }
       @media screen and (max-height: 650px) {
         .player .track.now-playing {
           min-height: 120px;
