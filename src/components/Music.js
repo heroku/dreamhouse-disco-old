@@ -20,7 +20,8 @@ const select = function(store, ownProps) {
     tracks: music.music.tracks.items,
     playlist: music.music,
     currentTrack: music.currentTrack,
-    isPlaying: music.playing
+    isPlaying: music.playing,
+    currentTrackIndex: music.currentTrackIndex
   }
 }
 
@@ -32,9 +33,6 @@ class Music extends Component {
   }
 
   componentDidMount() {
-    // TODO: replace hard-coded playlist with create or use existing playlist option:
-    //  - select existing playlist from list
-    //  - create new playlist
     this.props.fetchPlaylist()
     this.timer = setInterval(() => this.props.fetchPlaylist(), 5000)
     document.body.addEventListener('keydown', this.onKeyDown)
@@ -46,24 +44,26 @@ class Music extends Component {
   }
 
   handleKeyDown(e) {
-    if (e.code === 'Space') {
+    if (e.keyCode === 32) {
       e.preventDefault()
       this.props.togglePlay()
     }
   }
 
   render() {
-    let { displayNumber, number } = this.props.account
+    let { displayNumber, number, roomName } = this.props.account
     if (!displayNumber || displayNumber === '' ||
         displayNumber === undefined || displayNumber === 'null') {
       displayNumber = number.slice()
       number = ''
     }
 
-    let nowPlayingTrack = this.props.tracks.length > 0 ? this.props.tracks[0] : null
-    let upNextTrack = this.props.tracks.length > 1 ? this.props.tracks[1] : null
+    let nowPlayingTrack = this.props.tracks.length > this.props.currentTrackIndex ?
+                          this.props.tracks[this.props.currentTrackIndex] : null
+    let upNextTrack = this.props.tracks.length > this.props.currentTrackIndex + 1 ?
+                      this.props.tracks[this.props.currentTrackIndex + 1] : null
 
-    let tracks = _.map(this.props.tracks.slice(2), (track) => {
+    let tracks = _.map(this.props.tracks.slice(this.props.currentTrackIndex + 2), (track) => {
       return <Track
         key={ track.track.id }
         track={ track.track }
@@ -84,8 +84,8 @@ class Music extends Component {
               url={ this.props.currentTrack }
               playing={ this.props.isPlaying }
               controls={ false }
-              height={ 30 }
-              width={ 200 }
+              height={ 0 }
+              width={ 0 }
               onEnded={ () => this.props.nextTrack() }
             />
         </div>
@@ -123,10 +123,16 @@ class Music extends Component {
             </ol>
             <footer>
               <div className='track-count'><span>{ tracks.length }</span> tracks</div>
-              <div className='sms-number'>
-                <span>text a track to </span>
-                <strong>{ displayNumber }</strong>
-                <span className='alt-number'>{ number }</span>
+              <div className='request-track'>
+                <div className='sms-number'>
+                  <span>text a track to </span>
+                  <strong>{ displayNumber }</strong>
+                  <span className='alt-number'>{ number }</span>
+                </div>
+                <div className='fb-bot'>
+                  <p>request a track via <a href='https://www.facebook.com/dreamhousedisco'>fb.me/dreamhousedisco</a></p>
+                  <small>You are in the <strong>{ roomName.toUpperCase() }</strong></small>
+                </div>
               </div>
             </footer>
           </div>

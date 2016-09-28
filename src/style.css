@@ -349,7 +349,8 @@ a {
       -webkit-flex: 1 1 auto;
       -moz-flex: 1 1 auto;
       -ms-flex: 1 1 auto;
-      flex: 1 1 auto; }
+      flex: 1 1 auto;
+      height: calc(100vh - 70px); }
     .main.demo .player,
     .main.demo .playlist {
       -webkit-box-flex: 1;
@@ -493,6 +494,11 @@ header {
           font-size: 16px; } }
       header .logo h1 strong {
         font-weight: 400; }
+  header #audio-player {
+    opacity: 0; }
+    @media (max-width: 600px) {
+      header #audio-player {
+        width: 0; } }
   header .byline {
     text-align: right;
     font-weight: 100;
@@ -605,7 +611,7 @@ header {
         margin-bottom: 10px;
         display: block; }
       .player .track.now-playing .track-title {
-        font-size: 18px; }
+        font-size: 17px; }
       .player .track.now-playing .track-artist {
         font-size: 14px; }
       .player .track.now-playing:after {
@@ -616,6 +622,16 @@ header {
         right: -20px;
         top: -20px;
         background: url("../images/icon-now-playing.svg") no-repeat center center; }
+      @media screen and (max-height: 650px) {
+        .player .track.now-playing {
+          min-height: 120px;
+          padding: 10px 20px 10px 120px;
+          position: relative; }
+          .player .track.now-playing img {
+            width: 100px;
+            position: absolute;
+            left: 10px;
+            top: 10px; } }
     .player .track.on-deck, .player .track.submitted {
       min-height: 120px;
       padding: 10px 20px 10px 120px;
@@ -661,9 +677,11 @@ header {
     -webkit-flex: 1 1 auto;
     -moz-flex: 1 1 auto;
     -ms-flex: 1 1 auto;
-    flex: 1 1 auto; }
+    flex: 1 1 auto;
+    overflow: auto;
+    height: 100%; }
   .playlist .track {
-    padding: 20px 5px;
+    padding: 15px 5px;
     position: relative;
     border-bottom: 1px solid #d6d6d6;
     font-size: 15px; }
@@ -682,17 +700,26 @@ header {
     .playlist .track span {
       display: inline-block;
       vertical-align: middle; }
+  .playlist .track-artwork {
+    width: 50px;
+    height: 50px;
+    padding-right: 10px; }
+    .playlist .track-artwork img {
+      width: 100%;
+      margin-top: 5px;
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px #ddd; }
   .playlist .track-title {
-    width: calc((60% - 30px));
+    width: calc((60% - 50px));
     padding-right: 30px; }
   .playlist .track-artist {
-    width: calc((40% - 30px));
+    width: calc((40% - 50px));
     padding-right: 15px; }
   .playlist .track-time {
-    width: 60px;
+    width: 50px;
     text-align: right; }
   .playlist footer {
-    padding: 15px;
+    padding: 10px 15px 20px;
     display: -webkit-box;
     display: -moz-box;
     display: box;
@@ -721,23 +748,22 @@ header {
       font-style: normal;
       font-weight: 400;
       color: white; }
-  .playlist .sms-number {
-    text-align: right; }
-    .playlist .sms-number span, .playlist .sms-number strong {
-      display: inline-block;
-      vertical-align: middle; }
-    .playlist .sms-number strong {
-      margin-left: 10px;
-      font-size: 20px; }
-      .playlist .sms-number strong:before {
-        content: '';
-        width: 25px;
-        height: 13px;
-        margin-right: 10px;
+  .playlist .request-track {
+    text-align: right;
+    font-size: 15px; }
+    .playlist .request-track .sms-number {
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #ccc; }
+      .playlist .request-track .sms-number span, .playlist .request-track .sms-number strong {
         display: inline-block;
-        background: url("../images/icon-arrow.svg") no-repeat center center; }
-    .playlist .sms-number .alt-number {
-      display: block;
+        vertical-align: middle;
+        margin-left: 10px; }
+      .playlist .request-track .sms-number strong {
+        font-size: 18px; }
+    .playlist .request-track .alt-number {
+      margin-left: 10px;
+      display: inline-block;
       font-style: italic;
       opacity: .7; }
 

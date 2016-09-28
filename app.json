@@ -2,11 +2,21 @@
   "name": "dreamhouse-disco",
   "scripts": {
   },
+  "description": "A fun demo app to show off Heroku basics including Heroku Teams and Pipelines",
+  "repository": "https://github.com/heroku/dreamhouse-disco",
+  "logo": "https://github.com/heroku/dreamhouse-disco/raw/master/images/disco-chat-logo.png",
   "env": {
     "SPOTIFY_CLIENT_ID": {
+      "description": "Spotify App Client ID",
       "required": true
     },
     "SPOTIFY_CLIENT_SECRET": {
+      "description": "Spotify App Client Secret",
+      "required": true
+    },
+    "TRAVOLTA_REGISTER_URL": {
+      "description": "Travolta Service's Registration URL",
+      "value": "http://travolta-production.herokuapp.com/disco_registrations",
       "required": true
     }
   },
@@ -20,12 +30,9 @@
   },
   "addons": [
     "heroku-postgresql",
-    { "plan": "heroku-redis:premium-0" }
+    "heroku-redis"
   ],
   "buildpacks": [
-    {
-      "url": "https://github.com/heroku/heroku-buildpack-redis.git"
-    },
     {
       "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
     }

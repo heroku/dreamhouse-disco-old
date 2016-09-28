@@ -43,7 +43,8 @@ class AuthController {
           `/#/auth?id=${encodeURIComponent(acct.get('id'))}` +
           `&number=${encodeURIComponent(acct.get('number'))}` +
           `&name=${encodeURIComponent(acct.get('display_name'))}` +
-          `&displayNumber=${encodeURIComponent(acct.get('display_number'))}`
+          `&displayNumber=${encodeURIComponent(acct.get('display_number'))}` +
+          `&roomName=${encodeURIComponent(acct.get('travolta_room_name'))}`
         )
       } else {
 
@@ -123,7 +124,8 @@ class AuthController {
                       `/#/auth?id=${encodeURIComponent(account.get('id'))}` +
                       `&number=${encodeURIComponent(account.get('number'))}` +
                       `&name=${encodeURIComponent(account.get('display_name'))}` +
-                      `&displayNumber=${encodeURIComponent(account.get('display_number'))}`
+                      `&displayNumber=${encodeURIComponent(account.get('display_number'))}` +
+                      `&roomName=${encodeURIComponent(account.get('travolta_room_name'))}`
                     )
 
                     fmt.log({
@@ -152,7 +154,8 @@ class AuthController {
                     `/#/auth?id=${encodeURIComponent(account.get('id'))}` +
                     `&number=${encodeURIComponent(account.get('number'))}` +
                     `&name=${encodeURIComponent(account.get('display_name'))}` +
-                    `&displayNumber=${encodeURIComponent(account.get('display_number'))}`
+                    `&displayNumber=${encodeURIComponent(account.get('display_number'))}` +
+                    `&roomName=${encodeURIComponent(acct.get('travolta_room_name'))}`
                   )
 
                   fmt.log({

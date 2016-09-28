@@ -6,6 +6,7 @@ let db = require('../models')
 let _ = require('lodash')
 let request = require('request')
 let getValidToken = require('../lib/token')
+var fmt = require('logfmt')
 
 class PlaylistController {
 
@@ -34,9 +35,18 @@ class PlaylistController {
 
           request.get(playlistUrl, opts, function(error, response, body) {
             const playlist = JSON.parse(body)
-            // TODO: error handling
+            if (error || response.statusCode != 200) {
+              fmt.log({
+                type: 'warning',
+                msg: `Error: ${JSON.stringify(error || playlist)}`
+              })
 
-            // edit returned playlist to identify current playing track
+              // return faked empty playlist
+              res.json( { tracks: { items: [] } } )
+              return
+            }
+            // TODO: better error handling
+
             res.json(playlist)
           })
         })
