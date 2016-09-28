@@ -133,11 +133,11 @@
 
         #audio-inner,
         #audio-outer {
-          @include animation(audio 2s 2s ease-out infinite);
+          @include animation(audio 1.5s ease-in-out infinite);
         }
         #audio-inner,
         #audio-outer {
-          @include animation(audio 2s 2s ease-out infinite);
+          @include animation(audio 1.5s ease-in-out infinite);
         }
 
       }

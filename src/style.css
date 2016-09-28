@@ -699,14 +699,14 @@ header {
         top: -20px; }
         .player .track.now-playing #now-playing-icon #audio-inner,
         .player .track.now-playing #now-playing-icon #audio-outer {
-          -webkit-animation: audio 2s 2s ease-out infinite;
-          -moz-animation: audio 2s 2s ease-out infinite;
-          animation: audio 2s 2s ease-out infinite; }
+          -webkit-animation: audio 1.5s ease-in-out infinite;
+          -moz-animation: audio 1.5s ease-in-out infinite;
+          animation: audio 1.5s ease-in-out infinite; }
         .player .track.now-playing #now-playing-icon #audio-inner,
         .player .track.now-playing #now-playing-icon #audio-outer {
-          -webkit-animation: audio 2s 2s ease-out infinite;
-          -moz-animation: audio 2s 2s ease-out infinite;
-          animation: audio 2s 2s ease-out infinite; }
+          -webkit-animation: audio 1.5s ease-in-out infinite;
+          -moz-animation: audio 1.5s ease-in-out infinite;
+          animation: audio 1.5s ease-in-out infinite; }
       .player .track.now-playing .track-title {
         font-size: 17px; }
       .player .track.now-playing .track-artist {
