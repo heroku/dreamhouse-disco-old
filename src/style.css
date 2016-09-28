@@ -313,7 +313,7 @@ a {
   .button:hover {
     background-color: #036a94; }
 
-@media (min-width: 601px) {
+@media (min-width: 751px) {
   .main.demo {
     height: 100vh;
     display: -webkit-box;
@@ -614,14 +614,60 @@ header {
         font-size: 17px; }
       .player .track.now-playing .track-artist {
         font-size: 14px; }
-      .player .track.now-playing:after {
-        content: '';
+
+@-webkit-keyframes audio {
+  0% {
+    -webkit-transform: translate(0, 0);
+    opacity: 0; }
+  30% {
+    opacity: 1; }
+  100% {
+    -webkit-transform: translate(5px, 0);
+    opacity: 0; } }
+
+@-moz-keyframes audio {
+  0% {
+    -moz-transform: translate(0, 0);
+    opacity: 0; }
+  30% {
+    opacity: 1; }
+  100% {
+    -moz-transform: translate(5px, 0);
+    opacity: 0; } }
+
+@keyframes audio {
+  0% {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+    opacity: 0; }
+  30% {
+    opacity: 1; }
+  100% {
+    -webkit-transform: translate(5px, 0);
+    -moz-transform: translate(5px, 0);
+    -ms-transform: translate(5px, 0);
+    -o-transform: translate(5px, 0);
+    transform: translate(5px, 0);
+    opacity: 0; } }
+      .player .track.now-playing #now-playing-icon {
         width: 50px;
         height: 50px;
         position: absolute;
         right: -20px;
-        top: -20px;
-        background: url("../images/icon-now-playing.svg") no-repeat center center; }
+        top: -20px; }
+        .player .track.now-playing #now-playing-icon #audio-inner,
+        .player .track.now-playing #now-playing-icon #audio-outer {
+          -webkit-animation: audio 2s 2s ease-out infinite;
+          -moz-animation: audio 2s 2s ease-out infinite;
+          animation: audio 2s 2s ease-out infinite; }
+        .player .track.now-playing #now-playing-icon #audio-inner,
+        .player .track.now-playing #now-playing-icon #audio-outer {
+          -webkit-animation: audio 2s 2s ease-out infinite;
+          -moz-animation: audio 2s 2s ease-out infinite;
+          animation: audio 2s 2s ease-out infinite; }
       @media screen and (max-height: 650px) {
         .player .track.now-playing {
           min-height: 120px;

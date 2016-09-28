@@ -102,6 +102,7 @@ class Music extends Component {
                     <img src={ nowPlayingTrack.track.album.images[0].url } alt={ nowPlayingTrack.track.album.name }/>
                     <span className='track-title'>{ nowPlayingTrack.track.name }</span>
                     <span className='track-artist'>{ nowPlayingTrack.track.artists[0].name }</span>
+                    <svg id="now-playing-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><style>{ `.st0{fill:#048EC6;}.st1{fill:none;stroke:#FFFFFF;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}` }</style><circle className="st0" cx="25" cy="25" r="25"/><polygon className="st1" points="11.9,19.1 11.9,31.4 19.3,31.4 26,38.1 26,11.9 19.5,19.2 "/><path id="audio-inner" className="st1" d="M29.7,21.2c2.2,0,4,1.8,4,4s-1.8,4-4,4"/><path id="audio-outer" className="st1" d="M31.7,17c3.7,0.9,6.4,4.2,6.4,8.2s-2.7,7.3-6.4,8.2"/></svg>
                   </div>
                 </div>
               }
