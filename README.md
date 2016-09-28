@@ -2,7 +2,7 @@
 Hi 🤓
 Are you ready to party?
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/heroku/dreamhouse-disco)
 
 ## Dev Setup
 1. Create a [Spotify app](https://developer.spotify.com/my-applications/)
