@@ -870,6 +870,11 @@ header {
       display: inline-block;
       font-style: italic;
       opacity: .7; }
+  .playlist .spotify-play {
+    padding: 25px;
+    height: 100%; }
+  .playlist iframe {
+    border: none; }
 
 .form {
   padding: 30px; }

@@ -45,88 +45,9 @@ class Thanks extends React.Component {
 
         <div className='thanks-content'>
           <div className='playlist'>
-            <ol className='tracks'>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-            </ol>
+            <div className='spotify-play'>
+              <iframe src="https://embed.spotify.com/?uri=spotify:user:spotify:playlist:3rgsDhGHZxZ9sB9DQWQfuf&theme=white" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>
+            </div>
           </div>
 
           <div className='form'>
