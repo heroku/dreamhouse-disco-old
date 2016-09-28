@@ -877,6 +877,10 @@ header {
     .form {
       padding: 20px 40px;
       border-left: 1px solid #eee; } }
+  .form .product-photo {
+    height: 150px;
+    margin: 0 auto 10px;
+    display: block; }
   .form h3 {
     margin-bottom: 30px;
     text-align: center; }

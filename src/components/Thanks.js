@@ -6,6 +6,7 @@ import logo from '../../images/disco-chat-logo.png'
 import placeholder from '../../images/placeholder.png'
 import trailhead from '../../images/logo-trailhead.png'
 import enterprise from '../../images/logo-enterprise-dark.png'
+import headphones from '../../images/beats-headphones.jpg'
 
 const select = function(store, ownProps) {
   return {}
@@ -129,7 +130,8 @@ class Thanks extends React.Component {
           </div>
 
           <div className='form'>
-            <h3>Enter for a chance to win _________!</h3>
+            <img src={ headphones } className='product-photo' />
+            <h3>Enter for a chance to win a pair of Beats Solo headphones!</h3>
             <form>
               <div className='input-group'>
                 <input type='text' placeholder='First name*' id='' required />
