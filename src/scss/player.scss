@@ -72,7 +72,7 @@
         .track-next {
           width: 100%;
           padding: 10px;
-          left: 0;
+          right: 0;
           bottom: 0;
           background: rgba(23,52,78,.8) url('../images/audio-next.svg') no-repeat 95% center;
           text-transform: uppercase;
@@ -152,14 +152,33 @@
 
       @media screen and (max-height: 650px) {
         min-height: 120px;
-        padding: 10px 20px 10px 120px;
+        padding: 10px 20px 28px 120px;
         position: relative;
 
-        img {
+        #track-controls {
           width: 100px;
           position: absolute;
           left: 10px;
           top: 10px;
+
+          .track-play,
+          .track-pause {
+            width: 50px;
+            height: 50px;
+            margin-top: -25px;
+            margin-left: -25px;
+          }
+
+          .track-next {
+            width: 14px;
+            height: 13px;
+            padding: 0;
+            right: -25px;
+            bottom: 10px;
+            background-color: transparent;
+            background-position: center center;
+            text-indent: -9999em;
+          }
         }
       }
 
