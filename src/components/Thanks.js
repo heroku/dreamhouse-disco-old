@@ -41,6 +41,7 @@ class Thanks extends React.Component {
               <span className='track-artist'>Modest Mouse</span>
             </div>
           </div>
+          <a href='#entryform' className='button form-cta'>Enter to win Beats headphones</a>
         </div>
 
         <div className='thanks-content'>

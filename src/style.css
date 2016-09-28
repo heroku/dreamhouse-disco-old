@@ -308,6 +308,7 @@ a {
   letter-spacing: 2px;
   font-size: 14px;
   font-weight: 300;
+  text-align: center;
   color: white;
   cursor: pointer; }
   .button:hover {
@@ -536,6 +537,10 @@ header {
       background: url("../images/logo-spotify.png") no-repeat center center;
       background-size: 100px 30px;
       text-indent: -9999em; }
+  .hero .form-cta {
+    max-width: 92%;
+    margin: 30px auto 0;
+    display: block; }
 
 @media (max-width: 600px) {
   .hero {
@@ -553,6 +558,8 @@ header {
     display: -ms-flexbox;
     display: flex;
     padding: 40px; }
+    .hero .form-cta {
+      display: none; }
   .hero-thanks {
     padding-right: 30px;
     -webkit-flex-basis: 300px;
@@ -873,8 +880,11 @@ header {
   .playlist .spotify-play {
     padding: 25px;
     height: 100%; }
-  .playlist iframe {
-    border: none; }
+    .playlist .spotify-play iframe {
+      border: none; }
+      @media (max-width: 750px) {
+        .playlist .spotify-play iframe {
+          height: 600px; } }
 
 .form {
   padding: 30px; }

@@ -118,9 +118,12 @@
   .spotify-play {
     padding: 25px;
     height: 100%;
-  }
 
-  iframe {
-    border: none;
+    iframe {
+      border: none;
+      @media (max-width: $bp-medium) {
+        height: 600px;
+      }
+    }
   }
 }
