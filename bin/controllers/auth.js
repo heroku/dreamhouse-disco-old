@@ -125,7 +125,7 @@ class AuthController {
                       `&number=${encodeURIComponent(account.get('number'))}` +
                       `&name=${encodeURIComponent(account.get('display_name'))}` +
                       `&displayNumber=${encodeURIComponent(account.get('display_number'))}` +
-                      `&roomName=${encodeURIComponent(acct.get('travolta_room_name'))}`
+                      `&roomName=${encodeURIComponent(account.get('travolta_room_name'))}`
                     )
 
                     fmt.log({
