@@ -2,6 +2,8 @@
 Hi 🤓
 Are you ready to party?
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 ## Dev Setup
 1. Create a [Spotify app](https://developer.spotify.com/my-applications/)
 1. Copy `.env.sample` to `.env` and fill in the values.  To fill them in you'll need
