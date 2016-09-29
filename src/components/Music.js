@@ -114,9 +114,9 @@ class Music extends Component {
                   <div className={ `track now-playing ${playingClass}` }>
                     <div id="track-controls">
                       <img src={ nowPlayingTrack.track.album.images[0].url } alt={ nowPlayingTrack.track.album.name }/>
-                      <a className="track-play">Play</a>
-                      <a className="track-pause">Pause</a>
-                      <a className="track-next">Next</a>
+                      <a className="track-play" onClick={ () => this.props.togglePlay() }>Play</a>
+                      <a className="track-pause" onClick={ () => this.props.togglePlay() }>Pause</a>
+                      <a className="track-next" onClick={ () => this.props.nextTrack() }>Next</a>
                     </div>
                     <span className='track-title'>{ nowPlayingTrack.track.name }</span>
                     <span className='track-artist'>{ nowPlayingTrack.track.artists[0].name }</span>
