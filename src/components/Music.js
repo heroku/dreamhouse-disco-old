@@ -70,6 +70,9 @@ class Music extends Component {
       />
     })
 
+    let playingClass = this.props.isPlaying ? 'playing' : 'paused'
+    let playingText  = this.props.isPlaying ? 'Now Playing' : 'Paused'
+
 
     return (
       <div className='main demo' onKeyDown={ this.handleKeyDown }>
@@ -100,9 +103,9 @@ class Music extends Component {
                   {/* Could we swap out the h2 content to reflect the track status?
                       It could swap between "Now Playing" and "Paused"
                    */}
-                  <h2>Now Playing</h2>
+                  <h2>{ playingText }</h2>
                  {/* For below: Add className of 'playing' or 'paused' */}
-                  <div className='track now-playing playing'>
+                  <div className={ `track now-playing ${playingClass}` }>
                     <div id="track-controls">
                       <img src={ nowPlayingTrack.track.album.images[0].url } alt={ nowPlayingTrack.track.album.name }/>
                       <a className="track-play">Play</a>
