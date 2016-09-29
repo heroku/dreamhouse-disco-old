@@ -49,9 +49,14 @@ class Music extends Component {
     switch (e.keyCode) {
       case 32: {
         this.props.togglePlay()
+        break
       }
       case 39: {
         this.props.nextTrack()
+        break
+      }
+      default: {
+        
       }
     }
   }
