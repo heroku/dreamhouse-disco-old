@@ -44,19 +44,19 @@ class Music extends Component {
   }
 
   handleKeyDown(e) {
-    e.preventDefault()
 
     switch (e.keyCode) {
-      case 32: {
+      case 32: { // space
         this.props.togglePlay()
+        e.preventDefault()
         break
       }
-      case 39: {
+      case 39: { // right arrow
         this.props.nextTrack()
+        e.preventDefault()
         break
       }
       default: {
-        
       }
     }
   }
