@@ -155,7 +155,7 @@ function processRequest(job, ctx, done) {
               // if we got a short code from casey, queue that job now
               if ( msg.get('short_code') ) {
                 const personalizedPlaylist = {
-                  trackId: track.uri,
+                  track: track,
                   shortCode: msg.get('short_code')
                 }
 
@@ -171,7 +171,7 @@ function processRequest(job, ctx, done) {
                 job.on('failed', function(err) {
                   console.log(`Worker failed to complete job after ${ATTEMPTS} attempts,`,err)
                 })
-                
+
                 job.save((err) => {
                   if (!err) {
                     fmt.log({

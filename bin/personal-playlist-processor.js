@@ -30,7 +30,7 @@ function personalizedPlaylist(job, ctx, done) {
 
 
       // get tracks recommendations with spotify track id as seed (10 songs, min popularity = 50, US market)
-      const trackId = _.last(job.data.trackId.split(':'))
+      const trackId = _.last(job.data.track.uri.split(':'))
       const getRecommendationsURL = 'https://api.spotify.com/v1/recommendations'
       const recommendationsOpts = Object.assign({
         qs: {
@@ -89,8 +89,8 @@ function personalizedPlaylist(job, ctx, done) {
               return
             }
 
-            // send playlist uri to casey (to be embedded in spotify play button iframe player)
-            Casey.setPlaylistFor(job.data.shortCode, playlistUri)
+            // send playlist uri and seed track object to casey (to be embedded in spotify play button iframe player)
+            Casey.setPlaylistFor(job.data.shortCode, playlistUri, job.data.track)
             .then( () => done() )
             .catch(err => {
               fmt.log({
