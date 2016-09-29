@@ -6,6 +6,7 @@ import logo from '../../images/disco-chat-logo.png'
 import placeholder from '../../images/placeholder.png'
 import trailhead from '../../images/logo-trailhead.png'
 import enterprise from '../../images/logo-enterprise-dark.png'
+import headphones from '../../images/beats-headphones.jpg'
 
 const select = function(store, ownProps) {
   return {}
@@ -40,96 +41,19 @@ class Thanks extends React.Component {
               <span className='track-artist'>Modest Mouse</span>
             </div>
           </div>
+          <a href='#entryform' className='button form-cta'>Enter to win Beats headphones</a>
         </div>
 
         <div className='thanks-content'>
           <div className='playlist'>
-            <ol className='tracks'>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-              <li className='track'>
-                <span className='track-artwork'>
-                  <img src={ placeholder } />
-                </span>
-                <span className='track-title'>MMMBop</span>
-                <span className='track-artist'>Hanson</span>
-                <span className='track-time'>3:34</span>
-              </li>
-            </ol>
+            <div className='spotify-play'>
+              <iframe src="https://embed.spotify.com/?uri=spotify:user:spotify:playlist:3rgsDhGHZxZ9sB9DQWQfuf&theme=white" width="100%" height="100%" frameborder="0" allowtransparency="true"></iframe>
+            </div>
           </div>
 
           <div className='form'>
-            <h3>Enter for a chance to win _________!</h3>
+            <img src={ headphones } className='product-photo' />
+            <h3>Enter for a chance to win a pair of Beats Solo headphones!</h3>
             <form>
               <div className='input-group'>
                 <input type='text' placeholder='First name*' id='' required />

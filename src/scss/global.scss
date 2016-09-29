@@ -12,6 +12,7 @@ $link-color: $color-blue;
 $font-family: 'Source Sans Pro', sans-serif;
 
 $bp-small: 600px;
+$bp-medium: 750px;
 
 html {
   height: 100%;
@@ -54,6 +55,7 @@ a {
   letter-spacing: 2px;
   font-size: 14px;
   font-weight: 300;
+  text-align: center;
   color: white;
   cursor: pointer;
 
