@@ -44,9 +44,20 @@ class Music extends Component {
   }
 
   handleKeyDown(e) {
-    if (e.keyCode === 32) {
-      e.preventDefault()
-      this.props.togglePlay()
+
+    switch (e.keyCode) {
+      case 32: { // space
+        this.props.togglePlay()
+        e.preventDefault()
+        break
+      }
+      case 39: { // right arrow
+        this.props.nextTrack()
+        e.preventDefault()
+        break
+      }
+      default: {
+      }
     }
   }
 
@@ -69,6 +80,9 @@ class Music extends Component {
         track={ track.track }
       />
     })
+
+    let playingClass = this.props.isPlaying ? 'playing' : 'paused'
+    let playingText  = this.props.isPlaying ? 'Now Playing' : 'Paused'
 
 
     return (
@@ -97,11 +111,21 @@ class Music extends Component {
             <div className='container'>
               { nowPlayingTrack &&
                 <div>
-                  <h2>Now playing</h2>
-                  <div className='track now-playing'>
-                    <img src={ nowPlayingTrack.track.album.images[0].url } alt={ nowPlayingTrack.track.album.name }/>
+                  {/* Could we swap out the h2 content to reflect the track status?
+                      It could swap between "Now Playing" and "Paused"
+                   */}
+                  <h2>{ playingText }</h2>
+                 {/* For below: Add className of 'playing' or 'paused' */}
+                  <div className={ `track now-playing ${playingClass}` }>
+                    <div id="track-controls">
+                      <img src={ nowPlayingTrack.track.album.images[0].url } alt={ nowPlayingTrack.track.album.name }/>
+                      <a className="track-play" onClick={ () => this.props.togglePlay() }>Play</a>
+                      <a className="track-pause" onClick={ () => this.props.togglePlay() }>Pause</a>
+                      <a className="track-next" onClick={ () => this.props.nextTrack() }>Next</a>
+                    </div>
                     <span className='track-title'>{ nowPlayingTrack.track.name }</span>
                     <span className='track-artist'>{ nowPlayingTrack.track.artists[0].name }</span>
+                    <svg id="now-playing-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><style>{ `.st0{fill:#048EC6;}.st1{fill:none;stroke:#FFFFFF;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}` }</style><circle className="st0" cx="25" cy="25" r="25"/><polygon className="st1" points="11.9,19.1 11.9,31.4 19.3,31.4 26,38.1 26,11.9 19.5,19.2 "/><path id="audio-inner" className="st1" d="M29.7,21.2c2.2,0,4,1.8,4,4s-1.8,4-4,4"/><path id="audio-outer" className="st1" d="M31.7,17c3.7,0.9,6.4,4.2,6.4,8.2s-2.7,7.3-6.4,8.2"/></svg>
                   </div>
                 </div>
               }

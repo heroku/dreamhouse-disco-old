@@ -308,12 +308,13 @@ a {
   letter-spacing: 2px;
   font-size: 14px;
   font-weight: 300;
+  text-align: center;
   color: white;
   cursor: pointer; }
   .button:hover {
     background-color: #036a94; }
 
-@media (min-width: 601px) {
+@media (min-width: 751px) {
   .main.demo {
     height: 100vh;
     display: -webkit-box;
@@ -536,6 +537,10 @@ header {
       background: url("../images/logo-spotify.png") no-repeat center center;
       background-size: 100px 30px;
       text-indent: -9999em; }
+  .hero .form-cta {
+    max-width: 92%;
+    margin: 30px auto 0;
+    display: block; }
 
 @media (max-width: 600px) {
   .hero {
@@ -553,6 +558,8 @@ header {
     display: -ms-flexbox;
     display: flex;
     padding: 40px; }
+    .hero .form-cta {
+      display: none; }
   .hero-thanks {
     padding-right: 30px;
     -webkit-flex-basis: 300px;
@@ -610,28 +617,132 @@ header {
         width: 100%;
         margin-bottom: 10px;
         display: block; }
-      .player .track.now-playing .track-title {
-        font-size: 17px; }
-      .player .track.now-playing .track-artist {
-        font-size: 14px; }
-      .player .track.now-playing:after {
-        content: '';
+      .player .track.now-playing #track-controls {
+        position: relative; }
+        .player .track.now-playing #track-controls a {
+          display: block;
+          position: absolute;
+          cursor: pointer; }
+          .player .track.now-playing #track-controls a:hover {
+            opacity: 1; }
+        .player .track.now-playing #track-controls .track-play,
+        .player .track.now-playing #track-controls .track-pause {
+          width: 76px;
+          height: 76px;
+          left: 50%;
+          top: 50%;
+          margin-top: -38px;
+          margin-left: -38px;
+          background: no-repeat center center;
+          background-size: contain;
+          text-indent: -9999em; }
+        .player .track.now-playing #track-controls .track-pause {
+          background-image: url("../images/audio-pause.svg"); }
+        .player .track.now-playing #track-controls .track-play {
+          background-image: url("../images/audio-play.svg"); }
+        .player .track.now-playing #track-controls .track-next {
+          width: 100%;
+          padding: 10px;
+          right: 0;
+          bottom: 0;
+          background: rgba(23, 52, 78, 0.8) url("../images/audio-next.svg") no-repeat 95% center;
+          text-transform: uppercase;
+          font-size: 12px;
+          color: white; }
+      .player .track.now-playing.playing #track-controls a {
+        opacity: 0;
+        transition: .2s opacity; }
+      .player .track.now-playing.playing:hover #track-controls .track-next,
+      .player .track.now-playing.playing:hover #track-controls .track-pause {
+        opacity: 1; }
+      .player .track.now-playing.paused img {
+        opacity: .3; }
+      .player .track.now-playing.paused #track-controls .track-pause,
+      .player .track.now-playing.paused #now-playing-icon {
+        display: none; }
+
+@-webkit-keyframes audio {
+  0% {
+    -webkit-transform: translate(0, 0);
+    opacity: 0; }
+  30% {
+    opacity: 1; }
+  100% {
+    -webkit-transform: translate(5px, 0);
+    opacity: 0; } }
+
+@-moz-keyframes audio {
+  0% {
+    -moz-transform: translate(0, 0);
+    opacity: 0; }
+  30% {
+    opacity: 1; }
+  100% {
+    -moz-transform: translate(5px, 0);
+    opacity: 0; } }
+
+@keyframes audio {
+  0% {
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+    opacity: 0; }
+  30% {
+    opacity: 1; }
+  100% {
+    -webkit-transform: translate(5px, 0);
+    -moz-transform: translate(5px, 0);
+    -ms-transform: translate(5px, 0);
+    -o-transform: translate(5px, 0);
+    transform: translate(5px, 0);
+    opacity: 0; } }
+      .player .track.now-playing #now-playing-icon {
         width: 50px;
         height: 50px;
         position: absolute;
         right: -20px;
-        top: -20px;
-        background: url("../images/icon-now-playing.svg") no-repeat center center; }
+        top: -20px; }
+        .player .track.now-playing #now-playing-icon #audio-inner,
+        .player .track.now-playing #now-playing-icon #audio-outer {
+          -webkit-animation: audio 1.5s ease-in-out infinite;
+          -moz-animation: audio 1.5s ease-in-out infinite;
+          animation: audio 1.5s ease-in-out infinite; }
+        .player .track.now-playing #now-playing-icon #audio-inner,
+        .player .track.now-playing #now-playing-icon #audio-outer {
+          -webkit-animation: audio 1.5s ease-in-out infinite;
+          -moz-animation: audio 1.5s ease-in-out infinite;
+          animation: audio 1.5s ease-in-out infinite; }
+      .player .track.now-playing .track-title {
+        font-size: 17px; }
+      .player .track.now-playing .track-artist {
+        font-size: 14px; }
       @media screen and (max-height: 650px) {
         .player .track.now-playing {
           min-height: 120px;
-          padding: 10px 20px 10px 120px;
+          padding: 10px 20px 28px 120px;
           position: relative; }
-          .player .track.now-playing img {
+          .player .track.now-playing #track-controls {
             width: 100px;
             position: absolute;
             left: 10px;
-            top: 10px; } }
+            top: 10px; }
+            .player .track.now-playing #track-controls .track-play,
+            .player .track.now-playing #track-controls .track-pause {
+              width: 50px;
+              height: 50px;
+              margin-top: -25px;
+              margin-left: -25px; }
+            .player .track.now-playing #track-controls .track-next {
+              width: 14px;
+              height: 13px;
+              padding: 0;
+              right: -25px;
+              bottom: 10px;
+              background-color: transparent;
+              background-position: center center;
+              text-indent: -9999em; } }
     .player .track.on-deck, .player .track.submitted {
       min-height: 120px;
       padding: 10px 20px 10px 120px;
@@ -766,6 +877,14 @@ header {
       display: inline-block;
       font-style: italic;
       opacity: .7; }
+  .playlist .spotify-play {
+    padding: 25px;
+    height: 100%; }
+    .playlist .spotify-play iframe {
+      border: none; }
+      @media (max-width: 750px) {
+        .playlist .spotify-play iframe {
+          height: 600px; } }
 
 .form {
   padding: 30px; }
@@ -773,6 +892,10 @@ header {
     .form {
       padding: 20px 40px;
       border-left: 1px solid #eee; } }
+  .form .product-photo {
+    height: 150px;
+    margin: 0 auto 10px;
+    display: block; }
   .form h3 {
     margin-bottom: 30px;
     text-align: center; }

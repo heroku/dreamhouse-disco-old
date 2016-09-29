@@ -21,6 +21,12 @@
       text-indent: -9999em;
     }
   }
+
+  .form-cta {
+    max-width: 92%;
+    margin: 30px auto 0;
+    display: block;
+  }
 }
 
 //- For smaller screens
@@ -41,6 +47,10 @@
   .hero {
     @include display(flex);
     padding: 40px;
+
+    .form-cta {
+      display: none;
+    }
   }
 
   .hero-thanks {
