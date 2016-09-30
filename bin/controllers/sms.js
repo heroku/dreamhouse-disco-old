@@ -80,7 +80,7 @@ class SmsController {
           res.writeHead(200, { 'Content-Type':'text/xml' })
           res.end(resp.sms(
             `Searching... In the meantime, ` +
-            `check out this custom playlist we made you, `
+            `check out this custom playlist we made you, ` +
             `and enter to win a pair of Beats Solo headphones! ` +
             `${config.caseyUrl.replace(/https?:\/\//, '')}/p/${shortCode}`
           ).toString())
