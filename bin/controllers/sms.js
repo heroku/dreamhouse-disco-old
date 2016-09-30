@@ -79,9 +79,10 @@ class SmsController {
           // additional request to Spotify recommendation endpoint needs to be completed.
           res.writeHead(200, { 'Content-Type':'text/xml' })
           res.end(resp.sms(
-            `Yum, a new track. We\'ll find it and add it to the playlist. ` +
-            `Thanks, and keep the suggestions coming!` +
-            `${config.caseyUrl}/p/${shortCode}`
+            `Searching... In the meantime, ` +
+            `check out this custom playlist we made you, `
+            `and enter to win a pair of Beats Solo headphones! ` +
+            `${(config.caseyUrl}/p/${shortCode).replace(/https?:\/\//, '')}`
           ).toString())
         })
       })
