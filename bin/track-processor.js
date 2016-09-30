@@ -4,7 +4,6 @@
 let fmt = require('logfmt')
 let path = require('path')
 let kue = require('kue')
-let moment = require('moment')
 let db = require('./models')
 let _ = require('lodash')
 let request = require('request')
@@ -14,35 +13,17 @@ let getValidToken = require('./lib/token')
 
 q.process('track', track)
 
-// const validFields = [
-//   'accountSid',
-//   'messageSid',
-//   'smsMessageSid',
-//   'smsSid',
-//   'body',
-//   'from',
-//   'fromCity',
-//   'fromCountry',
-//   'fromState',
-//   'fromZip',
-//   'to',
-//   'toCity',
-//   'toCountry',
-//   'toState',
-//   'toZip',
-// ]
-
 function pauseWorker (ctx) {
   ctx.pause(1000, function (err) {
     fmt.log({
       type: 'warning',
-      msg: 'issue occured: worker paused, will resume in 30 seconds'
+      msg: 'issue occured: track worker paused, will resume in 30 seconds'
     })
 
     setTimeout(function () {
       fmt.log({
         type: 'warning',
-        msg: 'worker back on duty'
+        msg: 'track worker back on duty'
       })
       ctx.resume();
     }, 30000)
@@ -54,7 +35,7 @@ function track (job, ctx, done) {
     case 'sms':
       fmt.log({
         type: 'info',
-        msg: `Worker has SMS message from ${job.data.sender}, requesting '${job.data.text}'`
+        msg: `Track worker has SMS message from ${job.data.sender}, requesting '${job.data.text}'`
       })
       processRequest(job, ctx, done)
       break;
@@ -62,7 +43,7 @@ function track (job, ctx, done) {
     case 'fb':
       fmt.log({
         type: 'info',
-        msg: `Worker has FB message from ${job.data.sender}, requesting '${job.data.text}'`
+        msg: `Track worker has FB message from ${job.data.sender}, requesting '${job.data.text}'`
       })
       processRequest(job, ctx, done)
       break;
@@ -70,13 +51,13 @@ function track (job, ctx, done) {
     case 'chatter':
       fmt.log({
         type: 'info',
-        msg: `Worker has Chatter message from ${job.data.sender}, requesting '${job.data.text}'`
+        msg: `Track worker has Chatter message from ${job.data.sender}, requesting '${job.data.text}'`
       })
       processRequest(job, ctx, done)
       break;
 
     default:
-      const err = new Error('Unknown message type. Skipping.')
+      const err = new Error('Track worker has unknown message type. Skipping.')
       fmt.log({
         type: 'warning',
         msg: err
@@ -101,6 +82,7 @@ function processRequest(job, ctx, done) {
       type: job.data.type,
       sender: job.data.sender,
       text: job.data.text,
+      short_code: job.data.shortCode,
       raw_message: job.data,
       AccountId: acct.get('id')
     })
@@ -170,6 +152,35 @@ function processRequest(job, ctx, done) {
               track_id: track.uri
             })
             .then(function() {
+              // if we got a short code from casey, queue that job now
+              if ( msg.get('short_code') ) {
+                const personalizedPlaylist = {
+                  track: track,
+                  shortCode: msg.get('short_code')
+                }
+
+                let job = q.create('personalized-playlist', personalizedPlaylist)
+                const ATTEMPTS = 3
+
+                job.attempts(ATTEMPTS).ttl(5000)
+
+                job.on('failed attempt', function(err, doneAttempts){
+                  console.log(`Playlist worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
+                })
+
+                job.on('failed', function(err) {
+                  console.log(`Playlist worker failed to complete job after ${ATTEMPTS} attempts,`,err)
+                })
+
+                job.save((err) => {
+                  if (!err) {
+                    fmt.log({
+                      type: 'info',
+                      msg: `Personal playlist job received, added to Redis queue`
+                    })
+                  }
+                })
+              }
               done()  // done with job
             })
             .catch(function(err) {

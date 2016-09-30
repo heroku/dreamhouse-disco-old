@@ -43,6 +43,7 @@ db.Account.hasMany(db.Playlist)
 db.Playlist.belongsTo(db.Account)
 
 db.Message.belongsTo(db.Account)
+db.Account.hasMany(db.Message)
 
 function initDb() {
   return db.sequelize.sync({ force: config.forceDbRebuild }).then(function() {

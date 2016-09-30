@@ -32,7 +32,7 @@ class TravoltaController {
           type: 'error',
           msg: msg
         })
-        
+
         res.status(404).json({ error: msg })
         return
       }
@@ -56,28 +56,37 @@ class TravoltaController {
           rawMessage: req.body
         }
 
-        let job = q.create('track', track)
+        // get shortcode from Casey
+        // Casey returns undefined for the shortCode if a URL for him is not in the config
+        Casey.createShortCodeFor(track)
+        .then(function(shortCode) {
+          if (shortCode) track.shortCode = shortCode
 
-        const ATTEMPTS = 3
-        job.attempts(ATTEMPTS).ttl(5000)
+          let job = q.create('track', track)
 
-        job.on('failed attempt', function(err, doneAttempts){
-          console.log(`Worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
-        })
+          const ATTEMPTS = 3
+          job.attempts(ATTEMPTS).ttl(5000)
 
-        job.on('failed', function(err) {
-          console.log(`Worker failed to complete job after ${ATTEMPTS} attempts,`,err)
-        })
+          job.on('failed attempt', function(err, doneAttempts){
+            console.log(`Worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
+          })
 
-        job.save(function(err) {
-          if (!err) {
-            fmt.log({
-              type: 'info',
-              msg: `Track request received, added to Redis queue`
-            })
-          }
+          job.on('failed', function(err) {
+            console.log(`Worker failed to complete job after ${ATTEMPTS} attempts,`,err)
+          })
 
-          res.status(200).json({  })
+          job.save(function(err) {
+            if (!err) {
+              fmt.log({
+                type: 'info',
+                msg: `Track request received, added to Redis queue`
+              })
+            }
+
+            let resp = {}
+            if (shortCode) resp.recommended_playlist = `${config.caseyUrl}/p/${shortCode}`
+            res.status(200).json(resp)
+          })
         })
       }
     })

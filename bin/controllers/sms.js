@@ -7,6 +7,8 @@ let _ = require('lodash')
 let twilio = require('twilio')
 let q = require('../lib/queue')
 let fmt = require('logfmt')
+let Casey = require('../lib/casey')
+let config = require('../config')
 
 class SmsController {
 
@@ -32,50 +34,58 @@ class SmsController {
         return
       }
 
-      const track = {
+      const request = {
         type: 'sms',
         sender: `${req.body.From} (${req.body.FromCity})`,
         text: req.body.Body,
         rawMessage: req.body
       }
 
-      let job = q.create('track', track)
+      // get shortcode from Casey
+      // Casey returns undefined for the shortCode if a URL for him is not in the config
+      Casey.createShortCodeFor(request)
+      .then(function(shortCode) {
+        console.log('GOT SHORTCODE',shortCode)
+        if (shortCode) request.shortCode = shortCode
 
-      const ATTEMPTS = 3
-      job.attempts(ATTEMPTS).ttl(5000)
+        let job = q.create('track', request)
 
-      job.on('failed attempt', function(err, doneAttempts){
-        console.log(`Worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
-      })
+        const ATTEMPTS = 3
+        job.attempts(ATTEMPTS).ttl(5000)
 
-      job.on('failed', function(err) {
-        console.log(`Worker failed to complete job after ${ATTEMPTS} attempts,`,err)
-      })
+        job.on('failed attempt', function(err, doneAttempts){
+          console.log(`Track worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
+        })
 
-      job.save(function(err) {
-        if (!err) {
-          fmt.log({
-            type: 'info',
-            msg: `Track request received, added to Redis queue`
-          })
-        }
+        job.on('failed', function(err) {
+          console.log(`Track worker failed to complete job after ${ATTEMPTS} attempts,`,err)
+        })
 
-        var resp = new twilio.TwimlResponse()
+        job.save(function(err) {
+          if (!err) {
+            fmt.log({
+              type: 'info',
+              msg: `Track request received, added to Redis queue`
+            })
+          }
 
-        // TODO: Add unique short url to SMS reply linking to landing page showing
-        // personalized playlist of recommended tracks + Heroku call-to-actions.
-        //
-        // Landing page should show spinner and explanation text until page is ready.
-        // Re-fetch data every 5 seconds.  Data may take time to generate as an
-        // additional request to Spotify recommendation endpoint needs to be completed.
-        res.writeHead(200, { 'Content-Type':'text/xml' })
-        res.end(resp.sms(
-          `Yum, a new track. We\'ll find it and add it to the playlist. ` +
-          `Thanks, and keep the suggestions coming!`
-        ).toString())
+          var resp = new twilio.TwimlResponse()
+
+          // TODO: Add unique short url to SMS reply linking to landing page showing
+          // personalized playlist of recommended tracks + Heroku call-to-actions.
+          //
+          // Landing page should show spinner and explanation text until page is ready.
+          // Re-fetch data every 5 seconds.  Data may take time to generate as an
+          // additional request to Spotify recommendation endpoint needs to be completed.
+          res.writeHead(200, { 'Content-Type':'text/xml' })
+          res.end(resp.sms(
+            `Yum, a new track. We\'ll find it and add it to the playlist. ` +
+            `Thanks, and keep the suggestions coming!` +
+            `${config.caseyUrl}/p/${shortCode}`
+          ).toString())
+        })
       })
     })
-
   }
 }
 
