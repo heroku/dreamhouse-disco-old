@@ -8,6 +8,7 @@ let twilio = require('twilio')
 let q = require('../lib/queue')
 let fmt = require('logfmt')
 let Casey = require('../lib/casey')
+let config = require('../config')
 
 class SmsController {
 
@@ -33,7 +34,7 @@ class SmsController {
         return
       }
 
-      const track = {
+      const request = {
         type: 'sms',
         sender: `${req.body.From} (${req.body.FromCity})`,
         text: req.body.Body,
@@ -42,21 +43,22 @@ class SmsController {
 
       // get shortcode from Casey
       // Casey returns undefined for the shortCode if a URL for him is not in the config
-      Casey.createShortCodeFor(track)
+      Casey.createShortCodeFor(request)
       .then(function(shortCode) {
-        if (shortCode) track.shortCode = shortCode
+        console.log('GOT SHORTCODE',shortCode)
+        if (shortCode) request.shortCode = shortCode
 
-        let job = q.create('track', track)
+        let job = q.create('track', request)
 
         const ATTEMPTS = 3
         job.attempts(ATTEMPTS).ttl(5000)
 
         job.on('failed attempt', function(err, doneAttempts){
-          console.log(`Worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
+          console.log(`Track worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
         })
 
         job.on('failed', function(err) {
-          console.log(`Worker failed to complete job after ${ATTEMPTS} attempts,`,err)
+          console.log(`Track worker failed to complete job after ${ATTEMPTS} attempts,`,err)
         })
 
         job.save(function(err) {
