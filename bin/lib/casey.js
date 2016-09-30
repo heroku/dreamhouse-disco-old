@@ -23,8 +23,8 @@ Casey.createShortCodeFor = function(request) {
   return r(opts)
   .then( response => response.shortCode )
   .catch( err => {
-    const e = new Error(`Error creating short code with Casey: ${JSON.stringinfy(err)}`)
-    fmt.log({ type: 'error', msg: err })
+    const e = new Error(`Error creating short code with Casey: ${JSON.stringify(err)}`)
+    fmt.log({ type: 'error', msg: e })
     return e
   })
 
