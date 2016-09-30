@@ -117,7 +117,15 @@ function personalizedPlaylist(job, ctx, done) {
 
             // send playlist uri and seed track object to casey (to be embedded in spotify play button iframe player)
             Casey.setPlaylistFor(job.data.shortCode, playlistUri, job.data.track)
-            .then( () => done() )
+            .then( () => {
+              fmt.log({
+                type: 'info',
+                msg: 'Job complete: Personalized playlist created and sent to Casey Kasem',
+                shortCode: job.data.shortCode,
+                seedTrack: job.data.track.uri
+              })
+              return done()
+            })
             .catch(err => {
               fmt.log({
                 type: 'error',
