@@ -82,7 +82,7 @@ class SmsController {
             `Searching... In the meantime, ` +
             `check out this custom playlist we made you, `
             `and enter to win a pair of Beats Solo headphones! ` +
-            `${(config.caseyUrl}/p/${shortCode).replace(/https?:\/\//, '')}`
+            `${config.caseyUrl.replace(/https?:\/\//, '')}/p/${shortCode}`
           ).toString())
         })
       })
