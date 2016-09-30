@@ -2,17 +2,40 @@
 'use strict'
 
 let fmt = require('logfmt')
+let _ = require('lodash')
 let db = require('./models')
 let q = require('./lib/queue')
 let request = require('request')
 let config = require('./config')
 let getValidToken = require('./lib/token')
-let Casey = require('lib/casey')
+let Casey = require('./lib/casey')
 
 q.process('personalized-playlist', personalizedPlaylist)
 
+function pauseWorker (ctx) {
+  ctx.pause(1000, function (err) {
+    fmt.log({
+      type: 'warning',
+      msg: 'issue occured: playlist worker paused, will resume in 30 seconds'
+    })
+
+    setTimeout(function () {
+      fmt.log({
+        type: 'warning',
+        msg: 'worker back on duty'
+      })
+      ctx.resume();
+    }, 30000)
+  })
+}
+
 
 function personalizedPlaylist(job, ctx, done) {
+  fmt.log({
+    type: 'info',
+    msg: `Playlist worker has track ${job.data.track.uri} for short code ${job.data.shortCode}`
+  })
+
   db.Account.findOne({ })
   .then((acct) => {
 
@@ -36,7 +59,7 @@ function personalizedPlaylist(job, ctx, done) {
         qs: {
           seed_tracks: trackId,
           min_popularity: 50,
-          limit: 10,
+          limit: 20,
           market: 'US'
         }
       }, commonOpts)
@@ -57,7 +80,8 @@ function personalizedPlaylist(job, ctx, done) {
         const createPlaylistURL = `https://api.spotify.com/v1/users/${acct.get('id')}/playlists`
         const createPlaylistOpts = Object.assign({
           body: {
-            name: 'Dreamhouse Disco (built with 💜 by Heroku)',
+            // name: 'Dreamhouse Disco (built with 💜 by Heroku)',
+            name: 'Dreamhouse Disco',
             public: true
           }
         }, commonOpts)
@@ -77,7 +101,9 @@ function personalizedPlaylist(job, ctx, done) {
           // add songs to playlist
           const addSongsToPlaylistURL = body.tracks.href
           const addSongsToPlaylistOpts = Object.assign({
-            uris: tracks
+            body: {
+              uris: tracks
+            }
           }, commonOpts)
           request.post(addSongsToPlaylistURL, addSongsToPlaylistOpts, (err, res, body) => {
             if (err || res.statusCode ==! 200) {
