@@ -71,12 +71,6 @@ class SmsController {
 
           var resp = new twilio.TwimlResponse()
 
-          // TODO: Add unique short url to SMS reply linking to landing page showing
-          // personalized playlist of recommended tracks + Heroku call-to-actions.
-          //
-          // Landing page should show spinner and explanation text until page is ready.
-          // Re-fetch data every 5 seconds.  Data may take time to generate as an
-          // additional request to Spotify recommendation endpoint needs to be completed.
           res.writeHead(200, { 'Content-Type':'text/xml' })
           res.end(resp.sms(
             `Searching... In the meantime, ` +
