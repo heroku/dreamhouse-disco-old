@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, hashHistory, NoMatch } from 'react-router';
+import { Router, Route, browserHistory, NoMatch } from 'react-router';
 import { syncHistoryWithStore, routerActions } from 'react-router-redux'
 import { UserAuthWrapper } from 'redux-auth-wrapper'
 
@@ -16,7 +16,7 @@ import store from './store'
 
 import './style.css';
 
-const history = syncHistoryWithStore(hashHistory, store);
+const history = syncHistoryWithStore(browserHistory, store);
 
 const UserIsAuthenticated = UserAuthWrapper({
   authSelector: state => state.account.account,
