@@ -76,7 +76,7 @@ class Music extends Component {
 
     let tracks = _.map(this.props.tracks.slice(this.props.currentTrackIndex + 2), (track) => {
       return <Track
-        key={ track.track.id }
+        key={ track.track.id + track.added_at }
         track={ track.track }
       />
     })
