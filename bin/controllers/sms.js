@@ -45,7 +45,6 @@ class SmsController {
       // Casey returns undefined for the shortCode if a URL for him is not in the config
       Casey.createShortCodeFor(request)
       .then(function(shortCode) {
-        console.log('GOT SHORTCODE',shortCode)
         if (shortCode) request.shortCode = shortCode
 
         let job = q.create('track', request)
@@ -65,7 +64,7 @@ class SmsController {
           if (!err) {
             fmt.log({
               type: 'info',
-              msg: `Track request received, added to Redis queue`
+              msg: `Track request received from SMS, added to Redis queue`
             })
           }
 
