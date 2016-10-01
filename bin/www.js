@@ -65,6 +65,12 @@ if (config.env === 'development') {
   })
 }
 
+// handle every other route with index.html, which will contain
+// a script tag to your application's JavaScript file(s).
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'))
+})
+
 app.listen(config.server.port)
 
 fmt.log({

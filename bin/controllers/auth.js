@@ -40,7 +40,7 @@ class AuthController {
 
         // Redirect to React auth route
         res.redirect(config.url +
-          `/#/auth?id=${encodeURIComponent(acct.get('id'))}` +
+          `/auth?id=${encodeURIComponent(acct.get('id'))}` +
           `&number=${encodeURIComponent(acct.get('number'))}` +
           `&name=${encodeURIComponent(acct.get('display_name'))}` +
           `&displayNumber=${encodeURIComponent(acct.get('display_number'))}` +
@@ -121,7 +121,7 @@ class AuthController {
 
                     // Redirect to React auth route
                     res.redirect(config.url +
-                      `/#/auth?id=${encodeURIComponent(account.get('id'))}` +
+                      `/auth?id=${encodeURIComponent(account.get('id'))}` +
                       `&number=${encodeURIComponent(account.get('number'))}` +
                       `&name=${encodeURIComponent(account.get('display_name'))}` +
                       `&displayNumber=${encodeURIComponent(account.get('display_number'))}` +
@@ -151,7 +151,7 @@ class AuthController {
 
                   // Redirect to React auth route
                   res.redirect(config.url +
-                    `/#/auth?id=${encodeURIComponent(account.get('id'))}` +
+                    `/auth?id=${encodeURIComponent(account.get('id'))}` +
                     `&number=${encodeURIComponent(account.get('number'))}` +
                     `&name=${encodeURIComponent(account.get('display_name'))}` +
                     `&displayNumber=${encodeURIComponent(account.get('display_number'))}` +
