@@ -6,6 +6,7 @@ let db = require('../models')
 let _ = require('lodash')
 let q = require('../lib/queue')
 let fmt = require('logfmt')
+let Casey = require('../lib/casey')
 
 class TravoltaController {
 
@@ -68,18 +69,18 @@ class TravoltaController {
           job.attempts(ATTEMPTS).ttl(5000)
 
           job.on('failed attempt', function(err, doneAttempts){
-            console.log(`Worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
+            console.log(`Track worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
           })
 
           job.on('failed', function(err) {
-            console.log(`Worker failed to complete job after ${ATTEMPTS} attempts,`,err)
+            console.log(`Track worker failed to complete job after ${ATTEMPTS} attempts,`,err)
           })
 
           job.save(function(err) {
             if (!err) {
               fmt.log({
                 type: 'info',
-                msg: `Track request received, added to Redis queue`
+                msg: `Track request received from Travolta, added to Redis queue`
               })
             }
 
