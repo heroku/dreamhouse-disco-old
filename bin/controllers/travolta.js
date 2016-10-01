@@ -7,6 +7,7 @@ let _ = require('lodash')
 let q = require('../lib/queue')
 let fmt = require('logfmt')
 let Casey = require('../lib/casey')
+let config = require('../config')
 
 class TravoltaController {
 
