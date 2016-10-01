@@ -6,6 +6,7 @@ var url = require('url')
 
 var redis = process.env.REDIS_URL && url.parse(process.env.REDIS_URL)
 var postgres = process.env.DATABASE_URL && process.env.DATABASE_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
+var travoltaUrl = process.env.TRAVOLTA_URL && process.env.TRAVOLTA_URL.replace(/\/$/, '')
 
 module.exports = {
   env: process.env.NODE_ENV || 'development',
@@ -16,7 +17,8 @@ module.exports = {
   database: process.env.DATABASE_URL || '',
   forceDbRebuild: util.bool(process.env.FORCE_DB_REBUILD) || false,
   travolta: {
-    registerUrl: process.env.TRAVOLTA_REGISTER_URL || 'http://travolta-production.herokuapp.com/disco_registrations'
+    registerUrl: `${travoltaUrl}/disco_registrations` || 'http://travolta-production.herokuapp.com/disco_registrations',
+    trackResponseUrl: `${travoltaUrl}/spotify_tracks` || 'http://travolta-production.herokuapp.com/spotify_tracks'
   },
   caseyUrl: process.env.CASEY_URL,
   spotify: {

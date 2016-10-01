@@ -55,6 +55,7 @@ class TravoltaController {
           type: 'fb',
           sender: req.body.sender,
           text: req.body.text,
+          song_request_id: req.body.song_request_id,
           rawMessage: req.body
         }
 
