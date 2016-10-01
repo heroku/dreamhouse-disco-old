@@ -83,6 +83,7 @@ function processRequest(job, ctx, done) {
       sender: job.data.sender,
       text: job.data.text,
       short_code: job.data.shortCode,
+      travolta_song_request_id: job.data.song_request_id,
       raw_message: job.data,
       AccountId: acct.get('id')
     })
@@ -120,73 +121,113 @@ function processRequest(job, ctx, done) {
               messageKey: msg.id,
               request: msg.body
             })
-            done()
-            return
-          }
 
-          let track = tracks.items[0]
+            // Reply to Travolta with null track object so he knows we didn't find a track
+            const travoltaTracksUrl = `${config.travolta.trackResponseUrl}`
+            const travoltaOpts = {
+              body: {
+                song_request_id: job.data.song_request_id, // required
+                track: null, // optional
+                recommended_playlist: null // optional
+              },
+              json: true }
+            request.post(travoltaTracksUrl, travoltaOpts, function(err, res, body) {
+              if (err || res.statusCode ==! 200) {
+                fmt.log({
+                  type: 'error',
+                  msg: err.message || res.statusCode
+                })
+                done(err.message || res.statusCode)
+                return
+              }
 
-          // Add track to playlist
-          const user = acct.get('id')
-          const playlist = acct.get('playlist_id')
-          let spotifyTrackAddUri = `https://api.spotify.com/v1/users/${user}/playlists/${playlist}/tracks?uris=${track.uri}`
-          request.post(spotifyTrackAddUri, opts, function(err, res, body) {
-            if (err || res.statusCode ==! 200) {
-              fmt.log({
-                type: 'error',
-                msg: err.message || res.statusCode
-              })
-              done(err.message || res.statusCode)
+              done()
               return
-            }
-
-            fmt.log({
-              type: 'info',
-              msg: 'Job complete: Track added to the playlist',
-              messageKey: msg.id,
-              trackKey: track.uri
             })
+          } else {
+            let track = tracks.items[0]
 
-            // Add track id to message record
-            msg.update({
-              track_id: track.uri
-            })
-            .then(function() {
-              // if we got a short code from casey, queue that job now
-              if ( msg.get('short_code') ) {
-                const personalizedPlaylist = {
-                  track: track,
-                  shortCode: msg.get('short_code')
+            // Add track to playlist
+            const user = acct.get('id')
+            const playlist = acct.get('playlist_id')
+            let spotifyTrackAddUri = `https://api.spotify.com/v1/users/${user}/playlists/${playlist}/tracks?uris=${track.uri}`
+            request.post(spotifyTrackAddUri, opts, function(err, res, body) {
+              if (err || res.statusCode ==! 200) {
+                fmt.log({
+                  type: 'error',
+                  msg: err.message || res.statusCode
+                })
+                done(err.message || res.statusCode)
+                return
+              }
+
+              fmt.log({
+                type: 'info',
+                msg: 'Job complete: Track added to the playlist',
+                messageKey: msg.id,
+                trackKey: track.uri
+              })
+
+              // Reply to Travolta with track object so he can reply to track requester with album art
+              const travoltaTracksUrl = `${config.travolta.trackResponseUrl}`
+              const travoltaOpts = {
+                body: {
+                  song_request_id: job.data.song_request_id, // required
+                  track: track, // optional
+                  recommended_playlist: `${config.caseyUrl}/p/${job.data.shortCode}` // optional
+                },
+                json: true }
+              request.post(travoltaTracksUrl, travoltaOpts, function(err, res, body) {
+                if (err || res.statusCode ==! 200) {
+                  fmt.log({
+                    type: 'error',
+                    msg: err.message || res.statusCode
+                  })
+                  return
                 }
 
-                let job = q.create('personalized-playlist', personalizedPlaylist)
-                const ATTEMPTS = 3
-
-                job.attempts(ATTEMPTS).ttl(5000)
-
-                job.on('failed attempt', function(err, doneAttempts){
-                  console.log(`Playlist worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
+                // Add track id to message record
+                msg.update({
+                  track_id: track.uri
                 })
+                .then(function() {
+                  // if we got a short code from casey, queue that job now
+                  if ( msg.get('short_code') ) {
+                    const personalizedPlaylist = {
+                      track: track,
+                      shortCode: msg.get('short_code')
+                    }
 
-                job.on('failed', function(err) {
-                  console.log(`Playlist worker failed to complete job after ${ATTEMPTS} attempts,`,err)
-                })
+                    let job = q.create('personalized-playlist', personalizedPlaylist)
+                    const ATTEMPTS = 3
 
-                job.save((err) => {
-                  if (!err) {
-                    fmt.log({
-                      type: 'info',
-                      msg: `Personal playlist job received, added to Redis queue`
+                    job.attempts(ATTEMPTS).ttl(5000)
+
+                    job.on('failed attempt', function(err, doneAttempts){
+                      console.log(`Playlist worker failed to complete job, this is attempt ${doneAttempts} of ${ATTEMPTS}. Trying again.`)
+                    })
+
+                    job.on('failed', function(err) {
+                      console.log(`Playlist worker failed to complete job after ${ATTEMPTS} attempts,`,err)
+                    })
+
+                    job.save((err) => {
+                      if (!err) {
+                        fmt.log({
+                          type: 'info',
+                          msg: `Personal playlist job received, added to Redis queue`
+                        })
+                      }
                     })
                   }
+                  done()  // done with job
                 })
-              }
-              done()  // done with job
+                .catch(function(err) {
+                  throw new Error(err)
+                })
+              })
             })
-            .catch(function(err) {
-              throw new Error(err)
-            })
-          })
+          }
         })
       })
     })
