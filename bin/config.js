@@ -26,7 +26,8 @@ module.exports = {
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET || '',
     site: 'https://accounts.spotify.com',
     authorizationPath: '/authorize',
-    tokenPath: '/api/token'
+    tokenPath: '/api/token',
+    playlistName: process.env.PLAYLIST_NAME || 'Dreamhouse Disco, Master'
   },
   redis: {
   	port: redis && redis.port,
