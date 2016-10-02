@@ -76,10 +76,10 @@ class Music extends Component {
 
     let tracks = _.map(this.props.tracks.slice(this.props.currentTrackIndex + 2), (track) => {
       return <Track
-        key={ track.track.id }
+        key={ track.track.id + track.added_at }
         track={ track.track }
       />
-    })
+    }).reverse()
 
     let playingClass = this.props.isPlaying ? 'playing' : 'paused'
     let playingText  = this.props.isPlaying ? 'Now Playing' : 'Paused'

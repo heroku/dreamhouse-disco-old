@@ -6,6 +6,10 @@
   "repository": "https://github.com/heroku/dreamhouse-disco",
   "logo": "https://github.com/heroku/dreamhouse-disco/raw/master/images/disco-chat-logo.png",
   "env": {
+    "PLAYLIST_NAME": {
+      "description": "Name of the Spotify playlist you'd like to use or create",
+      "required": false
+    },
     "SPOTIFY_CLIENT_ID": {
       "description": "Spotify App Client ID",
       "required": true
@@ -14,9 +18,14 @@
       "description": "Spotify App Client Secret",
       "required": true
     },
-    "TRAVOLTA_REGISTER_URL": {
+    "TRAVOLTA_URL": {
       "description": "Travolta Service's Registration URL",
-      "value": "http://travolta-production.herokuapp.com/disco_registrations",
+      "value": "http://travolta-production.herokuapp.com",
+      "required": true
+    },
+    "CASEY_URL": {
+      "description": "Casey Kasem serves up custom playlists for you.",
+      "value": "https://discodre.am",
       "required": true
     }
   },
@@ -25,6 +34,9 @@
       "quantity": 1
     },
     "tracks": {
+      "quantity": 1
+    },
+    "playlist": {
       "quantity": 1
     }
   },

@@ -1,4 +1,5 @@
 web: npm run start-dev
 api: npm start
 tracks: npm run processTracks
+playlist: npm run personalPlaylist
 css: npm run sass-dev

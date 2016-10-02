@@ -6,7 +6,9 @@ module.exports = function(sequelize, DataTypes) {
 		sender: DataTypes.STRING,
 		text: DataTypes.STRING,
 		raw_message: DataTypes.JSON,
-		track_id: DataTypes.STRING
+		track_id: DataTypes.STRING,
+		short_code: DataTypes.STRING,
+		travolta_song_request_id: DataTypes.STRING
 
 		// accountSid: DataTypes.STRING,
 		// messageSid: DataTypes.STRING,
