@@ -79,7 +79,7 @@ class Music extends Component {
         key={ track.track.id + track.added_at }
         track={ track.track }
       />
-    })
+    }).reverse()
 
     let playingClass = this.props.isPlaying ? 'playing' : 'paused'
     let playingText  = this.props.isPlaying ? 'Now Playing' : 'Paused'
