@@ -158,7 +158,7 @@ class Music extends Component {
                   <small>You are in the <strong>{ roomName.toUpperCase() }</strong></small>
                 </div>
                 <div className='chatter-bot'>
-                  <p>request a track via <a href={ '"https://' + { JSON.stringify(orgName) } + '-dev-ed.lightning.force.com"' }>chatter on force.com</a></p>
+                  <p>request a track via <a href={ '"https://' + orgName + '-dev-ed.lightning.force.com"' }>chatter on force.com</a></p>
                 </div>
               </div>
             </footer>
