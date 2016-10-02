@@ -44,7 +44,8 @@ class AuthController {
           `&number=${encodeURIComponent(acct.get('number'))}` +
           `&name=${encodeURIComponent(acct.get('display_name'))}` +
           `&displayNumber=${encodeURIComponent(acct.get('display_number'))}` +
-          `&roomName=${encodeURIComponent(acct.get('travolta_room_name'))}`
+          `&roomName=${encodeURIComponent(acct.get('travolta_room_name'))}` +
+          `&orgName=${encodeURIComponent(acct.get('salesforce_org'))}`
         )
       } else {
 
@@ -109,7 +110,8 @@ class AuthController {
                   // Save Travolta room name and token
                   account.update({
                     travolta_token: body.token,
-                    travolta_room_name: body.room_name
+                    travolta_room_name: body.room_name,
+                    salesforce_org: body.salesforce_org
                   })
                   .then(function() {
                     // Set session information
@@ -125,7 +127,8 @@ class AuthController {
                       `&number=${encodeURIComponent(account.get('number'))}` +
                       `&name=${encodeURIComponent(account.get('display_name'))}` +
                       `&displayNumber=${encodeURIComponent(account.get('display_number'))}` +
-                      `&roomName=${encodeURIComponent(account.get('travolta_room_name'))}`
+                      `&roomName=${encodeURIComponent(account.get('travolta_room_name'))}` +
+                      `&orgName=${encodeURIComponent(account.get('salesforce_org'))}`
                     )
 
                     fmt.log({
@@ -155,7 +158,8 @@ class AuthController {
                     `&number=${encodeURIComponent(account.get('number'))}` +
                     `&name=${encodeURIComponent(account.get('display_name'))}` +
                     `&displayNumber=${encodeURIComponent(account.get('display_number'))}` +
-                    `&roomName=${encodeURIComponent(acct.get('travolta_room_name'))}`
+                    `&roomName=${encodeURIComponent(account.get('travolta_room_name'))}` +
+                    `&orgName=${encodeURIComponent(account.get('salesforce_org'))}`
                   )
 
                   fmt.log({

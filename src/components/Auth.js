@@ -58,7 +58,8 @@ class Auth extends Component {
         name: this.props.location.query.name,
         number: this.props.location.query.number,
         displayNumber: this.props.location.query.displayNumber,
-        roomName: this.props.location.query.roomName
+        roomName: this.props.location.query.roomName,
+        orgName: this.props.location.query.orgName
       });
       return null
     }
