@@ -111,7 +111,7 @@ class AuthController {
                   account.update({
                     travolta_token: body.token,
                     travolta_room_name: body.room_name,
-                    travolta_salesforce_org: body.salesforce_org
+                    salesforce_org: body.salesforce_org
                   })
                   .then(function() {
                     // Set session information
