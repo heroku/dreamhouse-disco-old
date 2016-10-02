@@ -109,7 +109,8 @@ class AuthController {
                   // Save Travolta room name and token
                   account.update({
                     travolta_token: body.token,
-                    travolta_room_name: body.room_name
+                    travolta_room_name: body.room_name,
+                    travolta_salesforce_org: body.salesforce_org
                   })
                   .then(function() {
                     // Set session information

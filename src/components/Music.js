@@ -62,7 +62,7 @@ class Music extends Component {
   }
 
   render() {
-    let { displayNumber, number, roomName } = this.props.account
+    let { displayNumber, number, roomName, orgName } = this.props.account
     if (!displayNumber || displayNumber === '' ||
         displayNumber === undefined || displayNumber === 'null') {
       displayNumber = number.slice()
@@ -156,6 +156,9 @@ class Music extends Component {
                 <div className='fb-bot'>
                   <p>request a track via <a href='https://www.facebook.com/dreamhousedisco'>fb.me/dreamhousedisco</a></p>
                   <small>You are in the <strong>{ roomName.toUpperCase() }</strong></small>
+                </div>
+                <div className='chatter-bot'>
+                  <p>request a track via <a href='{ orgName }-dev-ed.lightning.force.com'>chatter on force.com</a></p>
                 </div>
               </div>
             </footer>
