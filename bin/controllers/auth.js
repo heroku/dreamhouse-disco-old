@@ -127,8 +127,8 @@ class AuthController {
                       `&number=${encodeURIComponent(account.get('number'))}` +
                       `&name=${encodeURIComponent(account.get('display_name'))}` +
                       `&displayNumber=${encodeURIComponent(account.get('display_number'))}` +
-                      `&roomName=${encodeURIComponent(acct.get('travolta_room_name'))}` +
-                      `&orgName=${encodeURIComponent(acct.get('salesforce_org'))}`
+                      `&roomName=${encodeURIComponent(account.get('travolta_room_name'))}` +
+                      `&orgName=${encodeURIComponent(account.get('salesforce_org'))}`
                     )
 
                     fmt.log({
@@ -158,8 +158,8 @@ class AuthController {
                     `&number=${encodeURIComponent(account.get('number'))}` +
                     `&name=${encodeURIComponent(account.get('display_name'))}` +
                     `&displayNumber=${encodeURIComponent(account.get('display_number'))}` +
-                    `&roomName=${encodeURIComponent(acct.get('travolta_room_name'))}` +
-                    `&orgName=${encodeURIComponent(acct.get('salesforce_org'))}`
+                    `&roomName=${encodeURIComponent(account.get('travolta_room_name'))}` +
+                    `&orgName=${encodeURIComponent(account.get('salesforce_org'))}`
                   )
 
                   fmt.log({
