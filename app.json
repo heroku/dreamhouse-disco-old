@@ -6,6 +6,10 @@
   "repository": "https://github.com/heroku/dreamhouse-disco",
   "logo": "https://github.com/heroku/dreamhouse-disco/raw/master/images/disco-chat-logo.png",
   "env": {
+    "PLAYLIST_NAME": {
+      "description": "Name of the Spotify playlist you'd like to use or create",
+      "required": false
+    },
     "SPOTIFY_CLIENT_ID": {
       "description": "Spotify App Client ID",
       "required": true
