@@ -2,9 +2,9 @@
 Hi 🤓
 Are you ready to party?
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/heroku/dreamhouse-disco)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-## Dev Setup
+## Dev Setup (WIP)
 1. Create a [Spotify app](https://developer.spotify.com/my-applications/)
 1. Copy `.env.sample` to `.env` and fill in the values.  To fill them in you'll need
   1. Postgres database URL
@@ -19,18 +19,3 @@ Are you ready to party?
 Run: `heroku local -f Procfile.dev`
 
 That's the easiest way, but you can use whatever you want depending how you're working on it.  There are three processes that comprise the app when running it locally. These are specified in the `Procfile`.  You can run them all easily using [`node-foreman`](https://github.com/strongloop/node-foreman) or [`heroku local`](https://devcenter.heroku.com/articles/heroku-local).  Or you can run them individually in separate terminal windows.
-
-#### Static file server
-`npm start`
-
-Serves the React app -- i.e. all the HTML, CSS, and JS (includes auto-rebuild on file change).
-
-#### API
-`npm run api`
-
-Handles authentication
-
-#### Track processor
-`npm run processTracks`
-
-Looks up track requests with the Spotify API and adds them to the playlist.  Note that tracks to process are added with a `POST` request to the `/api/sms` endpoint.  This is currently built to accept `POST` requests from [Twilio](https://www.twilio.com/).

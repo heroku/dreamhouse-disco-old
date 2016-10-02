@@ -63,3 +63,22 @@ a {
     background-color: darken($color-blue, 10%);
   }
 }
+
+.button-purple {
+  margin: 1em 0;
+  padding:  15px 30px;
+  display: inline-block;
+  background-color: $color-purple;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($color-purple, 10%);
+  }
+}
