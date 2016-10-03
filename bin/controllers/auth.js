@@ -112,7 +112,8 @@ class AuthController {
                     travolta_token: body.token,
                     travolta_room_name: body.room_name,
                     salesforce_org: body.salesforce_org,
-                    number: body.phone_number
+                    number: body.phone_number,
+                    display_number: body.display_phone_number
                   })
                   .then(function() {
                     // Set session information
