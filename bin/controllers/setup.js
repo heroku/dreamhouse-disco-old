@@ -69,6 +69,8 @@ class SetupController {
           res.json({
             number: acct.get('number'),
             displayNumber: acct.get('display_number'),
+            salesforceUserName: acct.get('salesforce_user_name'),
+            salesforceUserEmail: acct.get('salesforce_user_email'),
             playlistId: `spotify:user:${acct.get('id')}:playlist:${acct.get('playlist_id')}`,
             playlistPrependTextV1: `spotify:user:${acct.get('id')}:playlist:${acct.get('playlist_id')}`,
             playlistPrependTextV2: `https://play.spotify.com/user/${acct.get('id')}/playlist/${acct.get('playlist_id')}`
