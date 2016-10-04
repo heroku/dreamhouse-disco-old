@@ -24,7 +24,7 @@ class Setup extends Component {
   render() {
     return (
       <div className="setup">
-        <h1>You are { this.props.setup.salesforce_user_name }, login to Salesforce with { this.props.setup.salesforce_user_email }
+        <h1>You are { this.props.setup.salesforce_user_name }, login to Salesforce with { this.props.setup.salesforce_user_email }</h1>
         <h2>Verify or input the following values</h2>
         <br/>
         <div className="input-element">
