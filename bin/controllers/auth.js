@@ -45,7 +45,9 @@ class AuthController {
           `&name=${encodeURIComponent(acct.get('display_name'))}` +
           `&displayNumber=${encodeURIComponent(acct.get('display_number'))}` +
           `&roomName=${encodeURIComponent(acct.get('travolta_room_name'))}` +
-          `&orgName=${encodeURIComponent(acct.get('salesforce_org'))}`
+          `&orgName=${encodeURIComponent(acct.get('salesforce_org'))}` +
+          `&salesforceUserName=${encodeURIComponent(acct.get('salesforce_user_name'))}` +
+          `&salesforceUserEmail=${encodeURIComponent(acct.get('salesforce_user_email'))}`
         )
       } else {
 
@@ -113,14 +115,18 @@ class AuthController {
                     travolta_room_name: body.room_name,
                     salesforce_org: body.salesforce_org,
                     number: body.phone_number,
-                    display_number: body.display_phone_number
+                    display_number: body.display_phone_number,
+                    salesforce_user_name: body.salesforce_user_name,
+                    salesforce_user_email: body.salesforce_user_email
                   })
                   .then(function() {
                     // Set session information
-                    req.session.spotifyId       = account.get('id');
-                    req.session.smsNumber       = account.get('number');
-                    req.session.display_number  = account.get('display_number');
-                    req.session.display_name    = account.get('display_name');
+                    req.session.spotifyId             = account.get('id');
+                    req.session.smsNumber             = account.get('number');
+                    req.session.display_number        = account.get('display_number');
+                    req.session.display_name          = account.get('display_name');
+                    req.session.salesforce_user_name  = account.get('salesforce_user_name');
+                    req.session.salesforce_user_email = account.get('salesforce_user_email');
                     req.session.save();
 
                     // Redirect to React auth route
@@ -130,6 +136,8 @@ class AuthController {
                       `&name=${encodeURIComponent(account.get('display_name'))}` +
                       `&displayNumber=${encodeURIComponent(account.get('display_number'))}` +
                       `&roomName=${encodeURIComponent(account.get('travolta_room_name'))}` +
+                      `&salesforceUserName=${encodeURIComponent(account.get('salesforce_user_name'))}` +
+                      `&salesforceUserEmail=${encodeURIComponent(account.get('salesforce_user_email'))}` +
                       `&orgName=${encodeURIComponent(account.get('salesforce_org'))}`
                     )
 
@@ -148,10 +156,12 @@ class AuthController {
 
                 } else { // if error registering with Travolta
                   // Set session information
-                  req.session.spotifyId       = account.get('id');
-                  req.session.smsNumber       = account.get('number');
-                  req.session.display_number  = account.get('display_number');
-                  req.session.display_name    = account.get('display_name');
+                  req.session.spotifyId             = account.get('id');
+                  req.session.smsNumber             = account.get('number');
+                  req.session.display_number        = account.get('display_number');
+                  req.session.display_name          = account.get('display_name');
+                  req.session.salesforce_user_name  = account.get('salesforce_user_name');
+                  req.session.salesforce_user_email = account.get('salesforce_user_email');
                   req.session.save();
 
                   // Redirect to React auth route
@@ -161,6 +171,8 @@ class AuthController {
                     `&name=${encodeURIComponent(account.get('display_name'))}` +
                     `&displayNumber=${encodeURIComponent(account.get('display_number'))}` +
                     `&roomName=${encodeURIComponent(account.get('travolta_room_name'))}` +
+                    `&salesforceUserName=${encodeURIComponent(account.get('salesforce_user_name'))}` +
+                    `&salesforceUserEmail=${encodeURIComponent(account.get('salesforce_user_email'))}` +
                     `&orgName=${encodeURIComponent(account.get('salesforce_org'))}`
                   )
 

@@ -23,6 +23,8 @@ module.exports = function(sequelize, DataTypes) {
 		travolta_token: DataTypes.STRING,
 		travolta_room_name: DataTypes.STRING,
 		salesforce_org: DataTypes.STRING,
+		salesforce_user_name: DataTypes.STRING,
+		salesforce_user_email: DataTypes.STRING,
 		oauth_token: DataTypes.JSON
 	})
 }
