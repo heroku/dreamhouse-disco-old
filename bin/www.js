@@ -1,6 +1,7 @@
 
 'use strict'
 
+require('newrelic');
 var fmt = require('logfmt')
 var express = require('express')
 var session = require('express-session')
