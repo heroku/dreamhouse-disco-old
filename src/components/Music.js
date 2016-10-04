@@ -154,11 +154,11 @@ class Music extends Component {
                   <span className='alt-number'>{ number }</span>
                 </div>
                 <div className='fb-bot'>
-                  <p>request a track via <a href='https://www.facebook.com/dreamhousedisco'>fb.me/dreamhousedisco</a></p>
+                  <p>request a track via <a target='_blank' href='https://www.facebook.com/dreamhousedisco'>fb.me/dreamhousedisco</a></p>
                   <small>You are in the <strong>{ roomName.toUpperCase() }</strong></small>
                 </div>
                 <div className='chatter-bot'>
-                  <p>request a track via <a href={ 'https://' + orgName + '-dev-ed.lightning.force.com' }>chatter on salesforce.com</a></p>
+                  <p>request a track via <a target='_blank' href={ 'https://' + orgName + '-dev-ed.lightning.force.com' }>chatter on salesforce.com</a></p>
                 </div>
               </div>
             </footer>
