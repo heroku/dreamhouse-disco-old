@@ -19,7 +19,7 @@ class App extends Component {
             <h1>Dreamhouse<strong>Disco</strong></h1>
           </div>
           <p className='tagline'>Your Party Built this Playlist</p>
-          <a href='/api/auth' className='button'>Get started!</a>
+          <a href='/api/auth' className='button-purple'>Get started!</a>
         </div>
       </div>
     )
